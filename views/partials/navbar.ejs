@@ -11,8 +11,8 @@
     }
 
     /* ═══════════════════════════════════════
-     NAVBAR
-  ═══════════════════════════════════════ */
+       NAVBAR
+    ═══════════════════════════════════════ */
     .ynav-wrap {
       position: fixed;
       top: 0;
@@ -24,7 +24,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      background: rgba(12, 15, 20, 0.85);
+      background: rgba(20, 27, 36, 0.85); /* ✅ #141B24 */
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       border-bottom: 1px solid rgba(200, 241, 53, 0.08);
@@ -32,16 +32,15 @@
     }
 
     .ynav-wrap.scrolled {
-      background: rgba(12, 15, 20, 0.97);
+      background: rgba(20, 27, 36, 0.97); /* ✅ #141B24 */
       border-color: rgba(200, 241, 53, 0.14);
     }
 
-    /* ── Brand ── */
+    /* ── Brand / Logo ── */
     .ynav-brand {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 26px;
-      letter-spacing: 2px;
-      color: var(--white);
+      display: flex;
+      align-items: center;
+      gap: 12px;
       text-decoration: none;
       flex-shrink: 0;
       transition: opacity 0.2s;
@@ -52,7 +51,22 @@
       opacity: 0.85;
     }
 
-    .ynav-brand span {
+    .ynav-brand img {
+      height: 52px;
+      width: auto;
+      display: block;
+      object-fit: contain;
+    }
+
+    .ynav-brand-text {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 22px;
+      letter-spacing: 2px;
+      color: var(--white);
+      display: block;
+    }
+
+    .ynav-brand-text span {
       color: var(--lime);
     }
 
@@ -67,7 +81,6 @@
     }
 
     .ynav-menu a {
-      font-family: 'Syne', sans-serif;
       font-size: 11px;
       font-weight: 600;
       letter-spacing: 2.5px;
@@ -113,7 +126,6 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      font-family: 'Syne', sans-serif;
       font-weight: 700;
       font-size: 11px;
       letter-spacing: 2px;
@@ -164,8 +176,8 @@
     }
 
     /* ═══════════════════════════════════════
-     ANIMATED HAMBURGER
-  ═══════════════════════════════════════ */
+       ANIMATED HAMBURGER
+    ═══════════════════════════════════════ */
     .ynav-hamburger {
       display: none;
       flex-direction: column;
@@ -183,8 +195,6 @@
       -webkit-tap-highlight-color: transparent;
     }
 
-
-
     .ynav-hamburger span {
       display: block;
       width: 22px;
@@ -195,7 +205,6 @@
       transform-origin: center;
     }
 
-    /* Animated X when open */
     .ynav-hamburger.open span:nth-child(1) {
       transform: translateY(7px) rotate(45deg);
     }
@@ -210,20 +219,19 @@
     }
 
     /* ═══════════════════════════════════════
-     MOBILE DRAWER — slides down smoothly
-  ═══════════════════════════════════════ */
+       MOBILE DRAWER
+    ═══════════════════════════════════════ */
     .ynav-drawer {
       position: fixed;
       top: var(--nav-h);
       left: 0;
       right: 0;
-      background: rgba(10, 12, 18, 0.98);
+      background: rgba(20, 27, 36, 0.98); /* ✅ #141B24 */
       backdrop-filter: blur(24px);
       -webkit-backdrop-filter: blur(24px);
       border-bottom: 1px solid rgba(200, 241, 53, 0.1);
       padding: 0 24px;
       z-index: 99998;
-      /* Slide animation */
       max-height: 0;
       overflow: hidden;
       transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1),
@@ -235,7 +243,6 @@
       padding: 16px 24px 28px;
     }
 
-    /* Drawer nav links */
     .ynav-drawer-nav {
       display: flex;
       flex-direction: column;
@@ -243,7 +250,6 @@
     }
 
     .ynav-drawer-nav a {
-      font-family: 'Syne', sans-serif;
       font-size: 13px;
       font-weight: 600;
       letter-spacing: 2px;
@@ -267,7 +273,6 @@
       padding-left: 6px;
     }
 
-    /* Chevron arrow on each link */
     .ynav-drawer-nav a::after {
       content: '›';
       font-size: 18px;
@@ -280,14 +285,12 @@
       transform: translateX(3px);
     }
 
-    /* Divider between links and action buttons */
     .ynav-drawer-divider {
       height: 1px;
       background: rgba(200, 241, 53, 0.08);
       margin: 16px 0;
     }
 
-    /* Drawer action buttons */
     .ynav-drawer-actions {
       display: flex;
       flex-direction: column;
@@ -302,8 +305,8 @@
     }
 
     /* ═══════════════════════════════════════
-     RESPONSIVE
-  ═══════════════════════════════════════ */
+       RESPONSIVE
+    ═══════════════════════════════════════ */
     @media (max-width: 1100px) {
       .ynav-wrap {
         padding: 0 32px;
@@ -333,14 +336,26 @@
         padding: 0 20px;
       }
 
-      .ynav-brand {
-        font-size: 22px;
+      .ynav-brand img {
+        height: 42px;
+      }
+
+      .ynav-brand-text {
+        font-size: 18px;
       }
     }
 
     @media (max-width: 380px) {
-      .ynav-brand {
-        font-size: 19px;
+      .ynav-wrap {
+        padding: 0 16px;
+      }
+
+      .ynav-brand img {
+        height: 36px;
+      }
+
+      .ynav-brand-text {
+        font-size: 16px;
         letter-spacing: 1px;
       }
     }
@@ -348,8 +363,11 @@
 
   <nav class="ynav-wrap" id="ynav">
 
-    <!-- Brand -->
-    <a class="ynav-brand" href="/">Ya.<span>Showtimestudio</span></a>
+    <!-- Logo + Text -->
+    <a class="ynav-brand" href="/">
+      <img src="/images/logo.png" alt="Ya.Showtime Studio"> <!-- ✅ fixed filename -->
+      <span class="ynav-brand-text">Ya.<span>Showtimestudio</span></span>
+    </a>
 
     <!-- Center links (desktop) -->
     <ul class="ynav-menu">
@@ -359,9 +377,9 @@
       <li><a href="/portfolio">Portfolio</a></li>
       <li><a href="/review">Reviews</a></li>
       <li><a href="/contact">Contact</a></li>
-      <% if (user && user.role==='admin' ) { %>
+      <% if (user && user.role==='admin') { %>
         <li><a href="/admin/contacts">⚙ Contacts</a></li>
-        <% } %>
+      <% } %>
     </ul>
 
     <!-- Right actions (desktop) -->
@@ -369,10 +387,10 @@
       <% if (user) { %>
         <a href="/contact" class="ynav-btn ynav-btn--primary">Start a Project</a>
         <a href="/logout" class="ynav-btn ynav-btn--logout">Log Out</a>
-        <% } else { %>
-          <a href="/signin" class="ynav-btn ynav-btn--ghost">Sign In</a>
-          <a href="/signup" class="ynav-btn ynav-btn--primary">Sign Up</a>
-          <% } %>
+      <% } else { %>
+        <a href="/signin" class="ynav-btn ynav-btn--ghost">Sign In</a>
+        <a href="/signup" class="ynav-btn ynav-btn--primary">Sign Up</a>
+      <% } %>
     </div>
 
     <!-- Animated hamburger -->
@@ -394,9 +412,9 @@
       <a href="/portfolio">Portfolio</a>
       <a href="/review">Reviews</a>
       <a href="/contact">Contact</a>
-      <% if (user && user.role==='admin' ) { %>
+      <% if (user && user.role==='admin') { %>
         <a href="/admin/contacts">⚙ Contacts</a>
-        <% } %>
+      <% } %>
     </div>
 
     <div class="ynav-drawer-divider"></div>
@@ -405,32 +423,30 @@
       <% if (user) { %>
         <a href="/contact" class="ynav-btn ynav-btn--primary">Start a Project</a>
         <a href="/logout" class="ynav-btn ynav-btn--logout">Log Out</a>
-        <% } else { %>
-          <a href="/signin" class="ynav-btn ynav-btn--ghost">Sign In</a>
-          <a href="/signup" class="ynav-btn ynav-btn--primary">Sign Up</a>
-          <% } %>
+      <% } else { %>
+        <a href="/signin" class="ynav-btn ynav-btn--ghost">Sign In</a>
+        <a href="/signup" class="ynav-btn ynav-btn--primary">Sign Up</a>
+      <% } %>
     </div>
 
   </div>
 
   <script>
     (function () {
-      var ynav = document.getElementById('ynav');
+      var ynav      = document.getElementById('ynav');
       var hamburger = document.getElementById('ynav-hamburger');
-      var drawer = document.getElementById('ynav-drawer');
+      var drawer    = document.getElementById('ynav-drawer');
 
-      /* ── Scroll effect ── */
       window.addEventListener('scroll', function () {
         ynav.classList.toggle('scrolled', window.scrollY > 10);
       }, { passive: true });
 
-      /* ── Hamburger toggle ── */
       function openDrawer() {
         drawer.classList.add('open');
         hamburger.classList.add('open');
         hamburger.setAttribute('aria-expanded', 'true');
         drawer.setAttribute('aria-hidden', 'false');
-        document.body.style.overflow = 'hidden'; // prevent bg scroll
+        document.body.style.overflow = 'hidden';
       }
 
       function closeDrawer() {
@@ -445,12 +461,10 @@
         drawer.classList.contains('open') ? closeDrawer() : openDrawer();
       });
 
-      /* ── Close on nav link click ── */
       drawer.querySelectorAll('a').forEach(function (a) {
         a.addEventListener('click', closeDrawer);
       });
 
-      /* ── Close on outside tap ── */
       document.addEventListener('click', function (e) {
         if (drawer.classList.contains('open') &&
           !drawer.contains(e.target) &&
@@ -459,12 +473,10 @@
         }
       });
 
-      /* ── Close on Escape key ── */
       document.addEventListener('keydown', function (e) {
         if (e.key === 'Escape') closeDrawer();
       });
 
-      /* ── Active link highlight ── */
       document.querySelectorAll('.ynav-menu a, .ynav-drawer-nav a').forEach(function (link) {
         if (link.getAttribute('href') === window.location.pathname) {
           link.classList.add('active');
@@ -473,5 +485,4 @@
     })();
   </script>
 
-
-  <%- include('scripts') %>
+<%- include('scripts') %>

@@ -165,11 +165,6 @@ mongoose
 /* ---------------- server ---------------- */
 
 const PORT = process.env.PORT || 3000;
-console.log("ENV CHECK:");
-console.log("MAIL_USER:", process.env.MAIL_USER || "❌ MISSING");
-console.log("MAIL_PASS:", process.env.MAIL_PASS ? "✅ Set" : "❌ MISSING");
-console.log("MONGO_URI:", process.env.MONGO_URI ? "✅ Set" : "❌ MISSING");
-console.log("SESSION_SECRET:", process.env.SESSION_SECRET ? "✅ Set" : "❌ MISSING");
 
 app.listen(PORT, () => {
   console.log("Server running on http://localhost:" + PORT);

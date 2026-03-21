@@ -5,14 +5,16 @@
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
   :root {
-    --lime:   #C8F135;
-    --dark:   #0C0F14;
-    --dark2:  #0b0d10;
-    --dark3:  #1a2030;
-    --white:  #FFFFFF;
-    --gray:   #8a9bb0;
-    --card:   #141b26;
-    --nav-h:  72px;
+    --lime:         #C8F135;
+    --dark:         #0C0F14;
+    --dark2:        #0b0d10;
+    --dark3:        #1a2030;
+    --white:        #FFFFFF;
+    --gray:         #8a9bb0;
+    --card:         #141b26;
+    --nav-h:        72px;
+    --font-display: 'Bebas Neue', sans-serif;
+    --font-body:    'Satoshi', sans-serif;
   }
 
   html { scroll-behavior: smooth; }
@@ -20,7 +22,7 @@
   body {
     background: var(--dark2);
     color: var(--white);
-    font-family: 'Syne', system-ui, sans-serif;
+    font-family: 'Satoshi', sans-serif !important;
     overflow-x: hidden;
   }
 
@@ -28,6 +30,7 @@
      SHARED UTILITIES
   ═══════════════════════════════════════ */
   .section-label {
+    font-family: 'Satoshi', sans-serif !important;
     font-size: 11px;
     font-weight: 600;
     letter-spacing: 4px;
@@ -48,10 +51,14 @@
   }
 
   .section-title {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: 'Bebas Neue', sans-serif !important;
     font-size: clamp(48px, 6vw, 80px);
     line-height: 1;
     letter-spacing: -1px;
+  }
+
+  .section-title span {
+    font-family: 'Bebas Neue', sans-serif !important;
   }
 
   .section-title .accent { color: var(--lime); }
@@ -62,7 +69,7 @@
     display: inline-flex;
     align-items: center;
     gap: 10px;
-    font-family: 'Syne', sans-serif;
+    font-family: 'Satoshi', sans-serif !important;
     font-size: 11px;
     font-weight: 700;
     letter-spacing: 2.5px;
@@ -92,8 +99,7 @@
 
   .btn-primary:hover::before { transform: scaleX(1); }
   .btn-primary:hover { color: var(--dark); transform: translateY(-2px); }
-
-  .btn-primary span { position: relative; z-index: 1; }
+  .btn-primary span  { position: relative; z-index: 1; }
 
   .btn-primary .arrow {
     position: relative;
@@ -110,7 +116,7 @@
     display: inline-flex;
     align-items: center;
     gap: 10px;
-    font-family: 'Syne', sans-serif;
+    font-family: 'Satoshi', sans-serif !important;
     font-size: 11px;
     font-weight: 600;
     letter-spacing: 2.5px;
@@ -137,7 +143,7 @@
     display: inline-flex;
     align-items: center;
     gap: 10px;
-    font-family: 'Syne', sans-serif;
+    font-family: 'Satoshi', sans-serif !important;
     font-size: 11px;
     font-weight: 700;
     letter-spacing: 2px;
@@ -254,6 +260,7 @@
     display: inline-flex;
     align-items: center;
     gap: 12px;
+    font-family: 'Satoshi', sans-serif !important;
     font-size: 11px;
     font-weight: 600;
     letter-spacing: 3.5px;
@@ -269,14 +276,18 @@
     background: var(--lime);
   }
 
-  .hero-title {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(72px, 13vw, 168px);
-    line-height: 0.88;
-    letter-spacing: -2px;
+  /* KEY FIX: hero-title AND all its children use Bebas Neue */
+  .hero-title,
+  .hero-title span,
+  .hero-title .accent,
+  .hero-title .outline {
+    font-family: 'Bebas Neue', sans-serif !important;
+    font-size: clamp(56px, 11vw, 110px);
+    line-height: 0.92;
+    letter-spacing: -1px;
   }
 
-  .hero-title .accent { color: var(--lime); }
+  .hero-title .accent  { color: var(--lime); }
 
   .hero-title .outline {
     -webkit-text-stroke: 1px rgba(255,255,255,0.25);
@@ -285,6 +296,7 @@
 
   .hero-desc {
     margin-top: 28px;
+    font-family: 'Satoshi', sans-serif !important;
     font-size: 15px;
     line-height: 1.75;
     color: var(--gray);
@@ -319,13 +331,14 @@
   .stat-item { text-align: right; }
 
   .stat-num {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: 'Bebas Neue', sans-serif !important;
     font-size: 54px;
     color: var(--lime);
     line-height: 1;
   }
 
   .stat-label {
+    font-family: 'Satoshi', sans-serif !important;
     font-size: 10px;
     letter-spacing: 2.5px;
     text-transform: uppercase;
@@ -346,6 +359,7 @@
   .scroll-indicator:hover { opacity: 0.85; }
 
   .scroll-label {
+    font-family: 'Satoshi', sans-serif !important;
     font-size: 9px;
     letter-spacing: 3px;
     text-transform: uppercase;
@@ -413,7 +427,7 @@
   .marquee-track > * { flex-shrink: 0; }
 
   .marquee-item {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: 'Bebas Neue', sans-serif !important;
     font-size: 19px;
     letter-spacing: 4px;
     color: var(--dark);
@@ -475,7 +489,7 @@
   .service-card:hover { background: var(--dark3); }
 
   .service-num {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: 'Bebas Neue', sans-serif !important;
     font-size: 64px;
     color: rgba(200,241,53,0.07);
     line-height: 1;
@@ -488,6 +502,7 @@
   .service-icon { font-size: 30px; margin-bottom: 18px; }
 
   .service-name {
+    font-family: 'Satoshi', sans-serif !important;
     font-size: 18px;
     font-weight: 700;
     margin-bottom: 14px;
@@ -497,6 +512,7 @@
   .service-card:hover .service-name { color: var(--lime); }
 
   .service-desc {
+    font-family: 'Satoshi', sans-serif !important;
     font-size: 13px;
     line-height: 1.65;
     color: var(--gray);
@@ -529,12 +545,10 @@
     transform: translateY(-4px);
   }
 
-  .why-icon {
-    font-size: 28px;
-    margin-bottom: 18px;
-  }
+  .why-icon { font-size: 28px; margin-bottom: 18px; }
 
   .why-title {
+    font-family: 'Satoshi', sans-serif !important;
     font-size: 16px;
     font-weight: 700;
     margin-bottom: 10px;
@@ -542,6 +556,7 @@
   }
 
   .why-desc {
+    font-family: 'Satoshi', sans-serif !important;
     font-size: 13px;
     line-height: 1.65;
     color: var(--gray);
@@ -593,10 +608,8 @@
   .process-step + .process-step::after {
     content: '';
     position: absolute;
-    left: 0;
-    top: 24px;
-    width: 1px;
-    height: 20px;
+    left: 0; top: 24px;
+    width: 1px; height: 20px;
     background: rgba(200,241,53,0.15);
   }
 
@@ -609,7 +622,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: 'Bebas Neue', sans-serif !important;
     font-size: 22px;
     color: var(--lime);
     margin: 0 auto 24px;
@@ -625,6 +638,7 @@
   }
 
   .step-title {
+    font-family: 'Satoshi', sans-serif !important;
     font-size: 15px;
     font-weight: 700;
     margin-bottom: 10px;
@@ -635,6 +649,7 @@
   .process-step:hover .step-title { color: var(--lime); }
 
   .step-desc {
+    font-family: 'Satoshi', sans-serif !important;
     font-size: 13px;
     line-height: 1.6;
     color: var(--gray);
@@ -668,7 +683,7 @@
   }
 
   .cta-section h2 {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: 'Bebas Neue', sans-serif !important;
     font-size: clamp(36px, 4vw, 52px);
     line-height: 1.05;
     margin-bottom: 10px;
@@ -677,6 +692,7 @@
   }
 
   .cta-section p {
+    font-family: 'Satoshi', sans-serif !important;
     color: var(--gray);
     font-size: 14px;
     position: relative;
@@ -702,75 +718,48 @@
   }
 
   @media (max-width: 1024px) {
-    .hero    { padding: calc(var(--nav-h) + 40px) 32px 100px; }
-    .section { padding: 80px 32px; }
+    .hero            { padding: calc(var(--nav-h) + 40px) 32px 100px; }
+    .section         { padding: 80px 32px; }
     .process-section { padding: 80px 32px; }
+    .cta-section     { margin: 0 32px 80px; padding: 48px 36px; }
 
-    .cta-section {
-      margin: 0 32px 80px;
-      padding: 48px 36px;
-    }
-
-    .hero-inner {
-      flex-direction: column;
-      align-items: flex-start;
-    }
-
-    .hero-side {
-      flex-direction: row;
-      align-items: flex-end;
-      justify-content: flex-start;
-      width: 100%;
-      gap: 40px;
-      margin-top: 48px;
-    }
-
-    .hero-stats {
-      flex-direction: row;
-      align-items: flex-end;
-      gap: 40px;
-    }
-
-    .stat-item { text-align: left; }
+    .hero-inner  { flex-direction: column; align-items: flex-start; }
+    .hero-side   { flex-direction: row; align-items: flex-end; justify-content: flex-start; width: 100%; gap: 40px; margin-top: 48px; }
+    .hero-stats  { flex-direction: row; align-items: flex-end; gap: 40px; }
+    .stat-item   { text-align: left; }
     .scroll-indicator { display: none; }
-
-    .why-grid { grid-template-columns: repeat(2, 1fr); }
+    .why-grid    { grid-template-columns: repeat(2, 1fr); }
   }
 
   @media (max-width: 768px) {
-    .hero-title { font-size: clamp(60px, 16vw, 100px); }
+    .hero-title,
+    .hero-title span,
+    .hero-title .accent,
+    .hero-title .outline { font-size: clamp(56px, 14vw, 90px); }
 
     .services-grid { grid-template-columns: 1fr; }
     .process-grid  { grid-template-columns: 1fr; gap: 32px; }
     .why-grid      { grid-template-columns: 1fr; }
-
-    .cta-section {
-      flex-direction: column;
-      align-items: flex-start;
-    }
-
-    .cta-actions { width: 100%; justify-content: flex-start; }
+    .cta-section   { flex-direction: column; align-items: flex-start; }
+    .cta-actions   { width: 100%; justify-content: flex-start; }
   }
 
   @media (max-width: 640px) {
-    .hero    { padding: calc(var(--nav-h) + 24px) 20px 80px; }
-    .section { padding: 60px 20px; }
+    .hero            { padding: calc(var(--nav-h) + 24px) 20px 80px; }
+    .section         { padding: 60px 20px; }
     .process-section { padding: 60px 20px; }
-
-    .cta-section { margin: 0 20px 60px; padding: 36px 24px; }
+    .cta-section     { margin: 0 20px 60px; padding: 36px 24px; }
 
     .hero-actions { flex-direction: column; align-items: flex-start; }
     .hero-actions .btn-primary,
-    .hero-actions .btn-ghost  { width: 100%; justify-content: center; }
+    .hero-actions .btn-ghost { width: 100%; justify-content: center; }
 
-    .hero-side   { flex-direction: column; align-items: flex-start; }
-    .hero-stats  { flex-direction: row; flex-wrap: wrap; gap: 24px; }
+    .hero-side  { flex-direction: column; align-items: flex-start; }
+    .hero-stats { flex-direction: row; flex-wrap: wrap; gap: 24px; }
   }
 </style>
 
-<!-- ═══════════════════════════════════════════
-     HERO
-═══════════════════════════════════════════ -->
+<!-- HERO -->
 <section class="hero">
   <div class="hero-bg"></div>
   <div class="grid-overlay"></div>
@@ -778,15 +767,13 @@
   <div class="blob blob-2"></div>
 
   <div class="hero-inner">
-
-    <!-- Left: copy -->
     <div class="hero-content">
       <div class="hero-tag fade-in">Private Growth Studio &nbsp;·&nbsp; 2026</div>
 
       <h1 class="hero-title fade-in d1">
-        Ya.<br>
-        <span class="accent">Showtime</span><br>
-        <span class="outline">Studio</span>
+        One Stop<br>
+        <span class="accent">Digital Growth</span><br>
+        <span class="outline">Solutions</span>
       </h1>
 
       <p class="hero-desc fade-in d2">
@@ -808,7 +795,6 @@
       </div>
     </div>
 
-    <!-- Right: stats + scroll -->
     <div class="hero-side fade-in d4">
       <div class="hero-stats">
         <div class="stat-item">
@@ -829,13 +815,10 @@
         <span class="scroll-arrow">↓</span>
       </div>
     </div>
-
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════════
-     MARQUEE
-═══════════════════════════════════════════ -->
+<!-- MARQUEE -->
 <div class="marquee-section" aria-hidden="true">
   <div class="marquee-track">
     <div class="marquee-item">Brand Identity     <div class="marquee-dot"></div></div>
@@ -846,7 +829,6 @@
     <div class="marquee-item">Social Media       <div class="marquee-dot"></div></div>
     <div class="marquee-item">Video Editing      <div class="marquee-dot"></div></div>
     <div class="marquee-item">Growth Strategy    <div class="marquee-dot"></div></div>
-    <!-- duplicate for seamless loop -->
     <div class="marquee-item">Brand Identity     <div class="marquee-dot"></div></div>
     <div class="marquee-item">Content Creation   <div class="marquee-dot"></div></div>
     <div class="marquee-item">Meta Ads           <div class="marquee-dot"></div></div>
@@ -858,9 +840,7 @@
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════════
-     SERVICES
-═══════════════════════════════════════════ -->
+<!-- SERVICES -->
 <section class="section" id="services">
   <div class="section-label fade-in">What We Do</div>
   <h2 class="section-title fade-in d1">Our <span class="accent">Services</span></h2>
@@ -905,10 +885,8 @@
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════════
-     WHY US
-═══════════════════════════════════════════ -->
-<section class="section" id="why-us" style="padding-top:0">
+<!-- WHY US -->
+<section class="section" id="why-us" style="padding-top: 0;">
   <div class="section-label fade-in">Why Choose Us</div>
   <h2 class="section-title fade-in d1">Built <span class="accent">Different</span></h2>
 
@@ -931,11 +909,9 @@
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════════
-     PROCESS
-═══════════════════════════════════════════ -->
+<!-- PROCESS -->
 <section class="process-section" id="process">
-  <div style="max-width:1400px; margin:0 auto;">
+  <div style="max-width: 1400px; margin: 0 auto;">
     <div class="section-label fade-in">How It Works</div>
     <h2 class="section-title fade-in d1">Our <span class="accent">Process</span></h2>
 
@@ -964,9 +940,7 @@
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════════
-     CTA BANNER
-═══════════════════════════════════════════ -->
+<!-- CTA -->
 <div class="cta-section fade-in">
   <div>
     <h2>Ready to Build<br>Your Growth System?</h2>
@@ -982,4 +956,4 @@
 </div>
 
 <%- include('partials/footer') %>
-<%- include('partials/scripts') %>  
+<%- include('partials/scripts') %>
