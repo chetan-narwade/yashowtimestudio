@@ -2,12 +2,12 @@ const express = require("express");
 const router = express.Router();
 const bookingController = require("../controllers/booking");
 
-// ✅ Static routes FIRST (before dynamic /:id)
+// Static routes FIRST
 router.get("/payment-success", bookingController.paymentSuccess);
-router.get("/payment-cancel", bookingController.paymentCancel);
-router.get("/my-bookings", bookingController.myBookings);
+router.get("/payment-cancel",  bookingController.paymentCancel);
+router.get("/my-bookings",     bookingController.myBookings);
 
-// ✅ Dynamic route LAST
-router.post("/:id", bookingController.createCheckoutSession);
+// ✅ Fixed: was POST /:id
+router.post("/create-order/:id", bookingController.createCheckoutSession);
 
 module.exports = router;

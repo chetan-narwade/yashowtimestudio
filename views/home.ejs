@@ -1,1055 +1,1302 @@
 <%- include('partials/head') %>
-<%- include('partials/navbar') %>
-
-<style>
-  *,
-  *::before,
-  *::after {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-
-  :root {
-    --lime: #FF6B00;
-    --dark: #0C0F14;
-    --dark2: #0b0d10;
-    --dark3: #1a2030;
-    --white: #FFFFFF;
-    --gray: #8a9bb0;
-    --card: #141b26;
-    --nav-h: 72px;
-    --font-display: 'Bebas Neue', sans-serif;
-    --font-body: 'Satoshi', sans-serif;
-  }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    background: var(--dark2);
-    color: var(--white);
-    font-family: 'Satoshi', sans-serif !important;
-    overflow-x: hidden;
-  }
-
-  .section-label {
-    font-family: 'Satoshi', sans-serif !important;
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    color: var(--lime);
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-    gap: 16px;
-  }
-
-  .section-label::before {
-    content: '';
-    width: 28px;
-    height: 1px;
-    background: var(--lime);
-    flex-shrink: 0;
-  }
-
-  .section-title {
-    font-family: 'Bebas Neue', sans-serif !important;
-    font-size: clamp(48px, 6vw, 80px);
-    line-height: 1;
-    letter-spacing: -1px;
-  }
-
-  .section-title .accent { color: var(--lime); }
-
-  .btn-primary {
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    font-family: 'Satoshi', sans-serif !important;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 2.5px;
-    text-transform: uppercase;
-    color: var(--dark);
-    background: var(--lime);
-    border: none;
-    padding: 15px 36px;
-    border-radius: 40px;
-    cursor: pointer;
-    overflow: hidden;
-    text-decoration: none;
-    transition: color 0.35s, transform 0.2s;
-    white-space: nowrap;
-  }
-
-  .btn-primary::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: #fff;
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.35s cubic-bezier(.77,0,.18,1);
-    border-radius: 40px;
-  }
-
-  .btn-primary:hover::before { transform: scaleX(1); }
-  .btn-primary:hover { color: var(--dark); transform: translateY(-2px); }
-  .btn-primary span { position: relative; z-index: 1; }
-  .btn-primary .arrow {
-    position: relative;
-    z-index: 1;
-    display: inline-flex;
-    align-items: center;
-    transition: transform 0.3s;
-  }
-  .btn-primary:hover .arrow { transform: translateX(4px); }
-
-  .btn-primary:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-    transform: none;
-  }
-
-  .btn-ghost {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    font-family: 'Satoshi', sans-serif !important;
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 2.5px;
-    text-transform: uppercase;
-    color: var(--white);
-    background: transparent;
-    border: 1px solid rgba(255,255,255,0.18);
-    padding: 15px 36px;
-    border-radius: 40px;
-    cursor: pointer;
-    text-decoration: none;
-    transition: border-color 0.3s, color 0.3s, transform 0.2s;
-    white-space: nowrap;
-  }
-
-  .btn-ghost:hover {
-    border-color: var(--lime);
-    color: var(--lime);
-    transform: translateY(-2px);
-  }
-
-  .btn-dark {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    font-family: 'Satoshi', sans-serif !important;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    background: #111;
-    color: var(--white);
-    border: 1px solid rgba(255,255,255,0.18);
-    padding: 16px 36px;
-    border-radius: 40px;
-    cursor: pointer;
-    text-decoration: none;
-    white-space: nowrap;
-    transition: border-color 0.3s, color 0.3s, transform 0.2s;
-    flex-shrink: 0;
-  }
-
-  .btn-dark:hover {
-    border-color: var(--lime);
-    color: var(--lime);
-    transform: translateY(-2px);
-  }
-
-  .fade-in {
-    opacity: 0;
-    transform: translateY(22px);
-    animation: fadeInUp 0.9s ease forwards;
-  }
-
-  .d1 { animation-delay: 0.10s; }
-  .d2 { animation-delay: 0.22s; }
-  .d3 { animation-delay: 0.34s; }
-  .d4 { animation-delay: 0.46s; }
-  .d5 { animation-delay: 0.58s; }
-  .d6 { animation-delay: 0.70s; }
-
-  @keyframes fadeInUp {
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .hero {
-    min-height: 100vh;
-    padding: calc(var(--nav-h) + 60px) 60px 120px;
-    display: flex;
-    align-items: center;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .hero-bg {
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(ellipse 60% 60% at 72% 50%, rgba(255,107,0,0.07) 0%, transparent 70%),
-      radial-gradient(ellipse 30% 30% at 18% 82%, rgba(255,107,0,0.04) 0%, transparent 60%);
-    pointer-events: none;
-  }
-
-  .grid-overlay {
-    position: absolute;
-    inset: 0;
-    background-image:
-      linear-gradient(rgba(255,107,0,0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,107,0,0.03) 1px, transparent 1px);
-    background-size: 60px 60px;
-    pointer-events: none;
-  }
-
-  .blob {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(80px);
-    opacity: 0.15;
-    pointer-events: none;
-  }
-
-  .blob-1 {
-    width: 420px; height: 420px;
-    background: var(--lime);
-    top: -100px; right: 10%;
-    animation: float 8s ease-in-out infinite alternate;
-  }
-
-  .blob-2 {
-    width: 260px; height: 260px;
-    background: #6af;
-    bottom: 60px; left: 5%;
-    animation: float 11s ease-in-out infinite alternate-reverse;
-  }
-
-  @keyframes float {
-    from { transform: translate(0,0) scale(1); }
-    to   { transform: translate(30px,20px) scale(1.06); }
-  }
-
-  .hero-inner {
-    position: relative;
-    z-index: 1;
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    width: 100%;
-    gap: 40px;
-  }
-
-  .hero-content { max-width: 760px; }
-
-  .hero-tag {
-    display: inline-flex;
-    align-items: center;
-    gap: 12px;
-    font-family: 'Satoshi', sans-serif !important;
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 3.5px;
-    text-transform: uppercase;
-    color: var(--lime);
-    margin-bottom: 28px;
-  }
-
-  .hero-tag::before {
-    content: '';
-    width: 30px; height: 1px;
-    background: var(--lime);
-  }
-
-  .hero-title,
-  .hero-title span,
-  .hero-title .accent,
-  .hero-title .outline {
-    font-family: 'Bebas Neue', sans-serif !important;
-    font-size: clamp(56px, 11vw, 110px);
-    line-height: 0.92;
-    letter-spacing: -1px;
-  }
-
-  .hero-title .accent { color: var(--lime); }
-  .hero-title .outline {
-    -webkit-text-stroke: 1px rgba(255,255,255,0.25);
-    color: transparent;
-  }
-
-  .hero-desc {
-    margin-top: 28px;
-    font-family: 'Satoshi', sans-serif !important;
-    font-size: 15px;
-    line-height: 1.75;
-    color: var(--gray);
-    max-width: 460px;
-    font-weight: 400;
-  }
-
-  .hero-actions {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    margin-top: 44px;
-    flex-wrap: wrap;
-  }
-
-  .hero-side {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 48px;
-    flex-shrink: 0;
-  }
-
-  .hero-stats {
-    display: flex;
-    flex-direction: column;
-    gap: 32px;
-    align-items: flex-end;
-  }
-
-  .stat-item { text-align: right; }
-
-  .stat-num {
-    font-family: 'Bebas Neue', sans-serif !important;
-    font-size: 54px;
-    color: var(--lime);
-    line-height: 1;
-  }
-
-  .stat-label {
-    font-family: 'Satoshi', sans-serif !important;
-    font-size: 10px;
-    letter-spacing: 2.5px;
-    text-transform: uppercase;
-    color: var(--gray);
-    margin-top: 4px;
-  }
-
-  .scroll-indicator {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    opacity: 0.5;
-    transition: opacity 0.3s;
-  }
-
-  .scroll-indicator:hover { opacity: 0.85; }
-
-  .scroll-label {
-    font-family: 'Satoshi', sans-serif !important;
-    font-size: 9px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--gray);
-    writing-mode: vertical-lr;
-    transform: rotate(180deg);
-  }
-
-  .scroll-track {
-    width: 1px; height: 60px;
-    background: rgba(255,107,0,0.15);
-    position: relative;
-    overflow: hidden;
-    border-radius: 1px;
-  }
-
-  .scroll-fill {
-    position: absolute;
-    top: -40%; left: 0;
-    width: 100%; height: 40%;
-    background: var(--lime);
-    border-radius: 1px;
-    animation: scrollDrop 2s ease-in-out infinite;
-  }
-
-  @keyframes scrollDrop {
-    0%   { top: -40%; opacity: 0; }
-    20%  { opacity: 1; }
-    80%  { opacity: 1; }
-    100% { top: 140%; opacity: 0; }
-  }
-
-  .scroll-arrow {
-    animation: bounce 1.8s ease-in-out infinite;
-    color: var(--lime);
-    font-size: 14px;
-  }
-
-  @keyframes bounce {
-    0%, 100% { transform: translateY(0); }
-    50%       { transform: translateY(5px); }
-  }
-
-  .marquee-section {
-    background: var(--lime);
-    padding: 14px 0;
-    overflow: hidden;
-    display: flex;
-  }
-
-  .marquee-track {
-    display: flex;
-    gap: 60px;
-    white-space: nowrap;
-    animation: marquee 22s linear infinite;
-    will-change: transform;
-  }
-
-  .marquee-track > * { flex-shrink: 0; }
-
-  .marquee-item {
-    font-family: 'Bebas Neue', sans-serif !important;
-    font-size: 19px;
-    letter-spacing: 4px;
-    color: var(--dark);
-    display: flex;
-    align-items: center;
-    gap: 20px;
-  }
-
-  .marquee-dot {
-    width: 7px; height: 7px;
-    background: var(--dark);
-    border-radius: 50%;
-    opacity: 0.4;
-  }
-
-  @keyframes marquee {
-    0%   { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
-  }
-
-  .section {
-    padding: 120px 60px;
-    position: relative;
-  }
-
-  .services-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1px;
-    margin-top: 60px;
-    border: 1px solid rgba(255,107,0,0.1);
-    background: rgba(255,107,0,0.06);
-  }
-
-  .service-card {
-    background: var(--card);
-    padding: 48px 34px;
-    position: relative;
-    overflow: hidden;
-    transition: background 0.4s;
-  }
-
-  .service-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0;
-    width: 3px; height: 0;
-    background: var(--lime);
-    transition: height 0.4s ease;
-  }
-
-  .service-card:hover::before { height: 100%; }
-  .service-card:hover { background: var(--dark3); }
-
-  .service-num {
-    font-family: 'Bebas Neue', sans-serif !important;
-    font-size: 64px;
-    color: rgba(255,107,0,0.07);
-    line-height: 1;
-    margin-bottom: 28px;
-    transition: color 0.4s;
-  }
-
-  .service-card:hover .service-num { color: rgba(255,107,0,0.15); }
-
-  .service-name {
-    font-family: 'Satoshi', sans-serif !important;
-    font-size: 18px;
-    font-weight: 700;
-    margin-bottom: 14px;
-    transition: color 0.3s;
-  }
-
-  .service-card:hover .service-name { color: var(--lime); }
-
-  .service-desc {
-    font-family: 'Satoshi', sans-serif !important;
-    font-size: 13px;
-    line-height: 1.65;
-    color: var(--gray);
-  }
-
-  .why-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-    margin-top: 60px;
-  }
-
-  .why-card {
-    background: var(--card);
-    border: 1px solid rgba(255,107,0,0.07);
-    padding: 36px 30px;
-    transition: border-color 0.3s, transform 0.3s;
-  }
-
-  .why-card:hover {
-    border-color: rgba(255,107,0,0.3);
-    transform: translateY(-4px);
-  }
-
-  .why-icon { font-size: 28px; margin-bottom: 18px; }
-
-  .why-title {
-    font-family: 'Satoshi', sans-serif !important;
-    font-size: 16px;
-    font-weight: 700;
-    margin-bottom: 10px;
-    color: var(--white);
-  }
-
-  .why-desc {
-    font-family: 'Satoshi', sans-serif !important;
-    font-size: 13px;
-    line-height: 1.65;
-    color: var(--gray);
-  }
-
-  .process-section {
-    padding: 120px 60px;
-    background: var(--card);
-    position: relative;
-    overflow: hidden;
-  }
-
-  .process-section::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(255,107,0,0.3), transparent);
-  }
-
-  .process-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 0;
-    margin-top: 60px;
-    position: relative;
-  }
-
-  .process-grid::before {
-    content: '';
-    position: absolute;
-    top: 28px; left: 10%; right: 10%;
-    height: 1px;
-    background: linear-gradient(90deg, var(--lime), rgba(255,107,0,0.2), var(--lime));
-    opacity: 0.3;
-  }
-
-  .process-step {
-    padding: 0 24px;
-    text-align: center;
-    position: relative;
-  }
-
-  .process-step + .process-step::after {
-    content: '';
-    position: absolute;
-    left: 0; top: 24px;
-    width: 1px; height: 20px;
-    background: rgba(255,107,0,0.15);
-  }
-
-  .step-num {
-    width: 56px; height: 56px;
-    border-radius: 50%;
-    background: var(--dark2);
-    border: 1px solid rgba(255,107,0,0.2);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Bebas Neue', sans-serif !important;
-    font-size: 22px;
-    color: var(--lime);
-    margin: 0 auto 24px;
-    position: relative;
-    z-index: 1;
-    transition: background 0.3s, border-color 0.3s;
-  }
-
-  .process-step:hover .step-num {
-    background: var(--lime);
-    color: var(--dark);
-    border-color: var(--lime);
-  }
-
-  .step-title {
-    font-family: 'Satoshi', sans-serif !important;
-    font-size: 15px;
-    font-weight: 700;
-    margin-bottom: 10px;
-    color: var(--white);
-    transition: color 0.3s;
-  }
-
-  .process-step:hover .step-title { color: var(--lime); }
-
-  .step-desc {
-    font-family: 'Satoshi', sans-serif !important;
-    font-size: 13px;
-    line-height: 1.6;
-    color: var(--gray);
-  }
-
-  .cta-section {
-    margin: 0 60px 120px;
-    padding: 72px 60px;
-    background: linear-gradient(135deg, #141b26, #0c0f14);
-    border: 1px solid rgba(255,107,0,0.13);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-radius: 16px;
-    gap: 40px;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .cta-section::before {
-    content: '';
-    position: absolute;
-    top: -60px; right: -60px;
-    width: 300px; height: 300px;
-    background: radial-gradient(circle, rgba(255,107,0,0.06) 0%, transparent 70%);
-    border-radius: 50%;
-    pointer-events: none;
-  }
-
-  .cta-section h2 {
-    font-family: 'Bebas Neue', sans-serif !important;
-    font-size: clamp(36px, 4vw, 52px);
-    line-height: 1.05;
-    margin-bottom: 10px;
-    position: relative;
-    z-index: 1;
-  }
-
-  .cta-section p {
-    font-family: 'Satoshi', sans-serif !important;
-    color: var(--gray);
-    font-size: 14px;
-    position: relative;
-    z-index: 1;
-  }
-
-  .cta-actions {
-    display: flex;
-    gap: 14px;
-    flex-shrink: 0;
-    flex-wrap: wrap;
-    justify-content: flex-end;
-  }
-
-  /* Toast notification */
-  .toast {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    background: #1a2030;
-    border: 1px solid rgba(255,107,0,0.3);
-    color: var(--white);
-    padding: 16px 24px;
-    border-radius: 10px;
-    font-family: 'Satoshi', sans-serif;
-    font-size: 14px;
-    z-index: 9999;
-    display: none;
-    animation: slideUp 0.3s ease;
-  }
-
-  .toast.error { border-color: rgba(255, 60, 60, 0.4); color: #ff6b6b; }
-  .toast.show  { display: block; }
-
-  @keyframes slideUp {
-    from { opacity: 0; transform: translateY(10px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-  /* Responsive */
-  @media (max-width: 1200px) {
-    .services-grid { grid-template-columns: repeat(2, 1fr); }
-    .process-grid  { grid-template-columns: repeat(2, 1fr); gap: 40px; }
-    .process-grid::before { display: none; }
-    .process-step + .process-step::after { display: none; }
-  }
-
-  @media (max-width: 1024px) {
-    .hero { padding: calc(var(--nav-h) + 40px) 32px 100px; }
-    .section, .process-section { padding: 80px 32px; }
-    .cta-section { margin: 0 32px 80px; padding: 48px 36px; }
-    .hero-inner { flex-direction: column; align-items: flex-start; }
-    .hero-side {
-      flex-direction: row;
-      align-items: flex-end;
-      justify-content: flex-start;
-      width: 100%;
-      gap: 40px;
-      margin-top: 48px;
-    }
-    .hero-stats { flex-direction: row; align-items: flex-end; gap: 40px; }
-    .stat-item { text-align: left; }
-    .scroll-indicator { display: none; }
-    .why-grid { grid-template-columns: repeat(2, 1fr); }
-  }
-
-  @media (max-width: 768px) {
-    .hero-title,
-    .hero-title span,
-    .hero-title .accent,
-    .hero-title .outline { font-size: clamp(56px, 14vw, 90px); }
-    .services-grid { grid-template-columns: 1fr; }
-    .process-grid  { grid-template-columns: 1fr; gap: 32px; }
-    .why-grid      { grid-template-columns: 1fr; }
-    .cta-section   { flex-direction: column; align-items: flex-start; }
-    .cta-actions   { width: 100%; justify-content: flex-start; }
-  }
-
-  @media (max-width: 640px) {
-    .hero { padding: calc(var(--nav-h) + 24px) 20px 80px; }
-    .section, .process-section { padding: 60px 20px; }
-    .cta-section { margin: 0 20px 60px; padding: 36px 24px; }
-    .hero-actions { flex-direction: column; align-items: flex-start; }
-    .hero-actions .btn-primary,
-    .hero-actions .btn-ghost { width: 100%; justify-content: center; }
-    .hero-side { flex-direction: column; align-items: flex-start; }
-    .hero-stats { flex-direction: row; flex-wrap: wrap; gap: 24px; }
-  }
-</style>
-
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-bg"></div>
-  <div class="grid-overlay"></div>
-  <div class="blob blob-1"></div>
-  <div class="blob blob-2"></div>
-
-  <div class="hero-inner">
-    <div class="hero-content">
-      <div class="hero-tag fade-in">CreativeForge &nbsp;·&nbsp; 2026</div>
-
-      <h1 class="hero-title fade-in d1">
-        One Stop<br>
-        <span class="accent">Digital Growth</span><br>
-        <span class="outline">Solutions</span>
-      </h1>
-
-      <p class="hero-desc fade-in d2">
-        We help businesses build strong digital foundations — combining branding,
-        content, marketing, and technology into one cohesive growth system.
-      </p>
-
-      <div class="hero-actions fade-in d3">
+  <%- include('partials/navbar') %>
+
+    <style>
+      *,
+      *::before,
+      *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --lime: #FF6B00;
+        --dark: #0C0F14;
+        --dark2: #0b0d10;
+        --dark3: #1a2030;
+        --white: #FFFFFF;
+        --gray: #8a9bb0;
+        --card: #141b26;
+        --nav-h: 72px;
+        --font-display: 'Bebas Neue', sans-serif;
+        --font-body: 'Satoshi', sans-serif;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        background: var(--dark2);
+        color: var(--white);
+        font-family: 'Satoshi', sans-serif !important;
+        overflow-x: hidden;
+      }
+
+      .section-label {
+        font-family: 'Satoshi', sans-serif !important;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        color: var(--lime);
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+
+      .section-label::before {
+        content: '';
+        width: 28px;
+        height: 1px;
+        background: var(--lime);
+        flex-shrink: 0;
+      }
+
+      .section-title {
+        font-family: 'Bebas Neue', sans-serif !important;
+        font-size: clamp(48px, 6vw, 80px);
+        line-height: 1;
+        letter-spacing: -1px;
+      }
+
+      .section-title .accent {
+        color: var(--lime);
+      }
+
+      .btn-primary {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        font-family: 'Satoshi', sans-serif !important;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 2.5px;
+        text-transform: uppercase;
+        color: var(--dark);
+        background: var(--lime);
+        border: none;
+        padding: 15px 36px;
+        border-radius: 40px;
+        cursor: pointer;
+        overflow: hidden;
+        text-decoration: none;
+        transition: color 0.35s, transform 0.2s;
+        white-space: nowrap;
+      }
+
+      .btn-primary::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: #fff;
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.35s cubic-bezier(.77, 0, .18, 1);
+        border-radius: 40px;
+      }
+
+      .btn-primary:hover::before {
+        transform: scaleX(1);
+      }
+
+      .btn-primary:hover {
+        color: var(--dark);
+        transform: translateY(-2px);
+      }
+
+      .btn-primary span {
+        position: relative;
+        z-index: 1;
+      }
+
+      .btn-primary .arrow {
+        position: relative;
+        z-index: 1;
+        display: inline-flex;
+        align-items: center;
+        transition: transform 0.3s;
+      }
+
+      .btn-primary:hover .arrow {
+        transform: translateX(4px);
+      }
+
+      .btn-primary:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none;
+      }
+
+      .btn-ghost {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        font-family: 'Satoshi', sans-serif !important;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 2.5px;
+        text-transform: uppercase;
+        color: var(--white);
+        background: transparent;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        padding: 15px 36px;
+        border-radius: 40px;
+        cursor: pointer;
+        text-decoration: none;
+        transition: border-color 0.3s, color 0.3s, transform 0.2s;
+        white-space: nowrap;
+      }
+
+      .btn-ghost:hover {
+        border-color: var(--lime);
+        color: var(--lime);
+        transform: translateY(-2px);
+      }
+
+      .btn-dark {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        font-family: 'Satoshi', sans-serif !important;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        background: #111;
+        color: var(--white);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        padding: 16px 36px;
+        border-radius: 40px;
+        cursor: pointer;
+        text-decoration: none;
+        white-space: nowrap;
+        transition: border-color 0.3s, color 0.3s, transform 0.2s;
+        flex-shrink: 0;
+      }
+
+      .btn-dark:hover {
+        border-color: var(--lime);
+        color: var(--lime);
+        transform: translateY(-2px);
+      }
+
+      .fade-in {
+        opacity: 0;
+        transform: translateY(22px);
+        animation: fadeInUp 0.9s ease forwards;
+      }
+
+      .d1 {
+        animation-delay: 0.10s;
+      }
+
+      .d2 {
+        animation-delay: 0.22s;
+      }
+
+      .d3 {
+        animation-delay: 0.34s;
+      }
+
+      .d4 {
+        animation-delay: 0.46s;
+      }
+
+      .d5 {
+        animation-delay: 0.58s;
+      }
+
+      .d6 {
+        animation-delay: 0.70s;
+      }
+
+      @keyframes fadeInUp {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .hero {
+        min-height: 100vh;
+        padding: calc(var(--nav-h) + 60px) 60px 120px;
+        display: flex;
+        align-items: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .hero-bg {
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(ellipse 60% 60% at 72% 50%, rgba(255, 107, 0, 0.07) 0%, transparent 70%),
+          radial-gradient(ellipse 30% 30% at 18% 82%, rgba(255, 107, 0, 0.04) 0%, transparent 60%);
+        pointer-events: none;
+      }
+
+      .grid-overlay {
+        position: absolute;
+        inset: 0;
+        background-image:
+          linear-gradient(rgba(255, 107, 0, 0.03) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 107, 0, 0.03) 1px, transparent 1px);
+        background-size: 60px 60px;
+        pointer-events: none;
+      }
+
+      .blob {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(80px);
+        opacity: 0.15;
+        pointer-events: none;
+      }
+
+      .blob-1 {
+        width: 420px;
+        height: 420px;
+        background: var(--lime);
+        top: -100px;
+        right: 10%;
+        animation: float 8s ease-in-out infinite alternate;
+      }
+
+      .blob-2 {
+        width: 260px;
+        height: 260px;
+        background: #6af;
+        bottom: 60px;
+        left: 5%;
+        animation: float 11s ease-in-out infinite alternate-reverse;
+      }
+
+      @keyframes float {
+        from {
+          transform: translate(0, 0) scale(1);
+        }
+
+        to {
+          transform: translate(30px, 20px) scale(1.06);
+        }
+      }
+
+      .hero-inner {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        width: 100%;
+        gap: 40px;
+      }
+
+      .hero-content {
+        max-width: 760px;
+      }
+
+      .hero-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        font-family: 'Satoshi', sans-serif !important;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 3.5px;
+        text-transform: uppercase;
+        color: var(--lime);
+        margin-bottom: 28px;
+      }
+
+      .hero-tag::before {
+        content: '';
+        width: 30px;
+        height: 1px;
+        background: var(--lime);
+      }
+
+      .hero-title,
+      .hero-title span,
+      .hero-title .accent,
+      .hero-title .outline {
+        font-family: 'Bebas Neue', sans-serif !important;
+        font-size: clamp(56px, 11vw, 110px);
+        line-height: 0.92;
+        letter-spacing: -1px;
+      }
+
+      .hero-title .accent {
+        color: var(--lime);
+      }
+
+      .hero-title .outline {
+        -webkit-text-stroke: 1px rgba(255, 255, 255, 0.25);
+        color: transparent;
+      }
+
+      .hero-desc {
+        margin-top: 28px;
+        font-family: 'Satoshi', sans-serif !important;
+        font-size: 15px;
+        line-height: 1.75;
+        color: var(--gray);
+        max-width: 460px;
+        font-weight: 400;
+      }
+
+      .hero-actions {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        margin-top: 44px;
+        flex-wrap: wrap;
+      }
+
+      .hero-side {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 48px;
+        flex-shrink: 0;
+      }
+
+      .hero-stats {
+        display: flex;
+        flex-direction: column;
+        gap: 32px;
+        align-items: flex-end;
+      }
+
+      .stat-item {
+        text-align: right;
+      }
+
+      .stat-num {
+        font-family: 'Bebas Neue', sans-serif !important;
+        font-size: 54px;
+        color: var(--lime);
+        line-height: 1;
+      }
+
+      .stat-label {
+        font-family: 'Satoshi', sans-serif !important;
+        font-size: 10px;
+        letter-spacing: 2.5px;
+        text-transform: uppercase;
+        color: var(--gray);
+        margin-top: 4px;
+      }
+
+      .scroll-indicator {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        opacity: 0.5;
+        transition: opacity 0.3s;
+      }
+
+      .scroll-indicator:hover {
+        opacity: 0.85;
+      }
+
+      .scroll-label {
+        font-family: 'Satoshi', sans-serif !important;
+        font-size: 9px;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: var(--gray);
+        writing-mode: vertical-lr;
+        transform: rotate(180deg);
+      }
+
+      .scroll-track {
+        width: 1px;
+        height: 60px;
+        background: rgba(255, 107, 0, 0.15);
+        position: relative;
+        overflow: hidden;
+        border-radius: 1px;
+      }
+
+      .scroll-fill {
+        position: absolute;
+        top: -40%;
+        left: 0;
+        width: 100%;
+        height: 40%;
+        background: var(--lime);
+        border-radius: 1px;
+        animation: scrollDrop 2s ease-in-out infinite;
+      }
+
+      @keyframes scrollDrop {
+        0% {
+          top: -40%;
+          opacity: 0;
+        }
+
+        20% {
+          opacity: 1;
+        }
+
+        80% {
+          opacity: 1;
+        }
+
+        100% {
+          top: 140%;
+          opacity: 0;
+        }
+      }
+
+      .scroll-arrow {
+        animation: bounce 1.8s ease-in-out infinite;
+        color: var(--lime);
+        font-size: 14px;
+      }
+
+      @keyframes bounce {
+
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+
+        50% {
+          transform: translateY(5px);
+        }
+      }
+
+      .marquee-section {
+        background: var(--lime);
+        padding: 14px 0;
+        overflow: hidden;
+        display: flex;
+      }
+
+      .marquee-track {
+        display: flex;
+        gap: 60px;
+        white-space: nowrap;
+        animation: marquee 22s linear infinite;
+        will-change: transform;
+      }
+
+      .marquee-track>* {
+        flex-shrink: 0;
+      }
+
+      .marquee-item {
+        font-family: 'Bebas Neue', sans-serif !important;
+        font-size: 19px;
+        letter-spacing: 4px;
+        color: var(--dark);
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+
+      .marquee-dot {
+        width: 7px;
+        height: 7px;
+        background: var(--dark);
+        border-radius: 50%;
+        opacity: 0.4;
+      }
+
+      @keyframes marquee {
+        0% {
+          transform: translateX(0);
+        }
+
+        100% {
+          transform: translateX(-50%);
+        }
+      }
+
+      .section {
+        padding: 120px 60px;
+        position: relative;
+      }
+
+      .services-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1px;
+        margin-top: 60px;
+        border: 1px solid rgba(255, 107, 0, 0.1);
+        background: rgba(255, 107, 0, 0.06);
+      }
+
+      .service-card {
+        background: var(--card);
+        padding: 48px 34px;
+        position: relative;
+        overflow: hidden;
+        transition: background 0.4s;
+      }
+
+      .service-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 3px;
+        height: 0;
+        background: var(--lime);
+        transition: height 0.4s ease;
+      }
+
+      .service-card:hover::before {
+        height: 100%;
+      }
+
+      .service-card:hover {
+        background: var(--dark3);
+      }
+
+      .service-num {
+        font-family: 'Bebas Neue', sans-serif !important;
+        font-size: 64px;
+        color: rgba(255, 107, 0, 0.07);
+        line-height: 1;
+        margin-bottom: 28px;
+        transition: color 0.4s;
+      }
+
+      .service-card:hover .service-num {
+        color: rgba(255, 107, 0, 0.15);
+      }
+
+      .service-name {
+        font-family: 'Satoshi', sans-serif !important;
+        font-size: 18px;
+        font-weight: 700;
+        margin-bottom: 14px;
+        transition: color 0.3s;
+      }
+
+      .service-card:hover .service-name {
+        color: var(--lime);
+      }
+
+      .service-desc {
+        font-family: 'Satoshi', sans-serif !important;
+        font-size: 13px;
+        line-height: 1.65;
+        color: var(--gray);
+      }
+
+      .why-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+        margin-top: 60px;
+      }
+
+      .why-card {
+        background: var(--card);
+        border: 1px solid rgba(255, 107, 0, 0.07);
+        padding: 36px 30px;
+        transition: border-color 0.3s, transform 0.3s;
+      }
+
+      .why-card:hover {
+        border-color: rgba(255, 107, 0, 0.3);
+        transform: translateY(-4px);
+      }
+
+      .why-icon {
+        font-size: 28px;
+        margin-bottom: 18px;
+      }
+
+      .why-title {
+        font-family: 'Satoshi', sans-serif !important;
+        font-size: 16px;
+        font-weight: 700;
+        margin-bottom: 10px;
+        color: var(--white);
+      }
+
+      .why-desc {
+        font-family: 'Satoshi', sans-serif !important;
+        font-size: 13px;
+        line-height: 1.65;
+        color: var(--gray);
+      }
+
+      .process-section {
+        padding: 120px 60px;
+        background: var(--card);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .process-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(255, 107, 0, 0.3), transparent);
+      }
+
+      .process-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 0;
+        margin-top: 60px;
+        position: relative;
+      }
+
+      .process-grid::before {
+        content: '';
+        position: absolute;
+        top: 28px;
+        left: 10%;
+        right: 10%;
+        height: 1px;
+        background: linear-gradient(90deg, var(--lime), rgba(255, 107, 0, 0.2), var(--lime));
+        opacity: 0.3;
+      }
+
+      .process-step {
+        padding: 0 24px;
+        text-align: center;
+        position: relative;
+      }
+
+      .process-step+.process-step::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 24px;
+        width: 1px;
+        height: 20px;
+        background: rgba(255, 107, 0, 0.15);
+      }
+
+      .step-num {
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        background: var(--dark2);
+        border: 1px solid rgba(255, 107, 0, 0.2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: 'Bebas Neue', sans-serif !important;
+        font-size: 22px;
+        color: var(--lime);
+        margin: 0 auto 24px;
+        position: relative;
+        z-index: 1;
+        transition: background 0.3s, border-color 0.3s;
+      }
+
+      .process-step:hover .step-num {
+        background: var(--lime);
+        color: var(--dark);
+        border-color: var(--lime);
+      }
+
+      .step-title {
+        font-family: 'Satoshi', sans-serif !important;
+        font-size: 15px;
+        font-weight: 700;
+        margin-bottom: 10px;
+        color: var(--white);
+        transition: color 0.3s;
+      }
+
+      .process-step:hover .step-title {
+        color: var(--lime);
+      }
+
+      .step-desc {
+        font-family: 'Satoshi', sans-serif !important;
+        font-size: 13px;
+        line-height: 1.6;
+        color: var(--gray);
+      }
+
+      .cta-section {
+        margin: 0 60px 120px;
+        padding: 72px 60px;
+        background: linear-gradient(135deg, #141b26, #0c0f14);
+        border: 1px solid rgba(255, 107, 0, 0.13);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-radius: 16px;
+        gap: 40px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .cta-section::before {
+        content: '';
+        position: absolute;
+        top: -60px;
+        right: -60px;
+        width: 300px;
+        height: 300px;
+        background: radial-gradient(circle, rgba(255, 107, 0, 0.06) 0%, transparent 70%);
+        border-radius: 50%;
+        pointer-events: none;
+      }
+
+      .cta-section h2 {
+        font-family: 'Bebas Neue', sans-serif !important;
+        font-size: clamp(36px, 4vw, 52px);
+        line-height: 1.05;
+        margin-bottom: 10px;
+        position: relative;
+        z-index: 1;
+      }
+
+      .cta-section p {
+        font-family: 'Satoshi', sans-serif !important;
+        color: var(--gray);
+        font-size: 14px;
+        position: relative;
+        z-index: 1;
+      }
+
+      .cta-actions {
+        display: flex;
+        gap: 14px;
+        flex-shrink: 0;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+      }
+
+      /* Toast notification */
+      .toast {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        background: #1a2030;
+        border: 1px solid rgba(255, 107, 0, 0.3);
+        color: var(--white);
+        padding: 16px 24px;
+        border-radius: 10px;
+        font-family: 'Satoshi', sans-serif;
+        font-size: 14px;
+        z-index: 9999;
+        display: none;
+        animation: slideUp 0.3s ease;
+      }
+
+      .toast.error {
+        border-color: rgba(255, 60, 60, 0.4);
+        color: #ff6b6b;
+      }
+
+      .toast.show {
+        display: block;
+      }
+
+      @keyframes slideUp {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Responsive */
+      @media (max-width: 1200px) {
+        .services-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        .process-grid {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 40px;
+        }
+
+        .process-grid::before {
+          display: none;
+        }
+
+        .process-step+.process-step::after {
+          display: none;
+        }
+      }
+
+      @media (max-width: 1024px) {
+        .hero {
+          padding: calc(var(--nav-h) + 40px) 32px 100px;
+        }
+
+        .section,
+        .process-section {
+          padding: 80px 32px;
+        }
+
+        .cta-section {
+          margin: 0 32px 80px;
+          padding: 48px 36px;
+        }
+
+        .hero-inner {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .hero-side {
+          flex-direction: row;
+          align-items: flex-end;
+          justify-content: flex-start;
+          width: 100%;
+          gap: 40px;
+          margin-top: 48px;
+        }
+
+        .hero-stats {
+          flex-direction: row;
+          align-items: flex-end;
+          gap: 40px;
+        }
+
+        .stat-item {
+          text-align: left;
+        }
+
+        .scroll-indicator {
+          display: none;
+        }
+
+        .why-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      @media (max-width: 768px) {
+
+        .hero-title,
+        .hero-title span,
+        .hero-title .accent,
+        .hero-title .outline {
+          font-size: clamp(56px, 14vw, 90px);
+        }
+
+        .services-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .process-grid {
+          grid-template-columns: 1fr;
+          gap: 32px;
+        }
+
+        .why-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .cta-section {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .cta-actions {
+          width: 100%;
+          justify-content: flex-start;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .hero {
+          padding: calc(var(--nav-h) + 24px) 20px 80px;
+        }
+
+        .section,
+        .process-section {
+          padding: 60px 20px;
+        }
+
+        .cta-section {
+          margin: 0 20px 60px;
+          padding: 36px 24px;
+        }
+
+        .hero-actions {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .hero-actions .btn-primary,
+        .hero-actions .btn-ghost {
+          width: 100%;
+          justify-content: center;
+        }
+
+        .hero-side {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .hero-stats {
+          flex-direction: row;
+          flex-wrap: wrap;
+          gap: 24px;
+        }
+      }
+    </style>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-bg"></div>
+      <div class="grid-overlay"></div>
+      <div class="blob blob-1"></div>
+      <div class="blob blob-2"></div>
+
+      <div class="hero-inner">
+        <div class="hero-content">
+          <div class="hero-tag fade-in">CreativeForge &nbsp;·&nbsp; 2026</div>
+
+          <h1 class="hero-title fade-in d1">
+            One Stop<br>
+            <span class="accent">Digital Growth</span><br>
+            <span class="outline">Solutions</span>
+          </h1>
+
+          <p class="hero-desc fade-in d2">
+            We help businesses build strong digital foundations — combining branding,
+            content, marketing, and technology into one cohesive growth system.
+          </p>
+
+          <div class="hero-actions fade-in d3">
+            <a href="/services" class="btn-primary">
+              <span>Explore Services</span>
+              <span class="arrow">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                  <path d="M2 7h10M7 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                </svg>
+              </span>
+            </a>
+            <a href="/portfolio" class="btn-ghost">View Portfolio</a>
+          </div>
+        </div>
+
+        <div class="hero-side fade-in d4">
+          <div class="hero-stats">
+            <div class="stat-item">
+              <div class="stat-num">4+</div>
+              <div class="stat-label">Service Pillars</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-num">01</div>
+              <div class="stat-label">Framework</div>
+            </div>
+          </div>
+          <div class="scroll-indicator fade-in d5">
+            <span class="scroll-label">Scroll</span>
+            <div class="scroll-track">
+              <div class="scroll-fill"></div>
+            </div>
+            <span class="scroll-arrow">↓</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MARQUEE -->
+    <div class="marquee-section" aria-hidden="true">
+      <div class="marquee-track">
+        <div class="marquee-item">Brand Identity <div class="marquee-dot"></div>
+        </div>
+        <div class="marquee-item">Content Creation <div class="marquee-dot"></div>
+        </div>
+        <div class="marquee-item">Meta Ads <div class="marquee-dot"></div>
+        </div>
+        <div class="marquee-item">SEO Optimization <div class="marquee-dot"></div>
+        </div>
+        <div class="marquee-item">Web Development <div class="marquee-dot"></div>
+        </div>
+        <div class="marquee-item">Social Media <div class="marquee-dot"></div>
+        </div>
+        <div class="marquee-item">Video Editing <div class="marquee-dot"></div>
+        </div>
+        <div class="marquee-item">Growth Strategy <div class="marquee-dot"></div>
+        </div>
+        <div class="marquee-item">Brand Identity <div class="marquee-dot"></div>
+        </div>
+        <div class="marquee-item">Content Creation <div class="marquee-dot"></div>
+        </div>
+        <div class="marquee-item">Meta Ads <div class="marquee-dot"></div>
+        </div>
+        <div class="marquee-item">SEO Optimization <div class="marquee-dot"></div>
+        </div>
+        <div class="marquee-item">Web Development <div class="marquee-dot"></div>
+        </div>
+        <div class="marquee-item">Social Media <div class="marquee-dot"></div>
+        </div>
+        <div class="marquee-item">Video Editing <div class="marquee-dot"></div>
+        </div>
+        <div class="marquee-item">Growth Strategy <div class="marquee-dot"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STATIC SERVICES -->
+    <section class="section" id="services">
+      <div class="section-label fade-in">What We Do</div>
+      <h2 class="section-title fade-in d1">Our <span class="accent">Services</span></h2>
+
+      <div class="services-grid">
+        <div class="service-card fade-in">
+          <div class="service-num">01</div>
+          <div class="service-icon">🎨</div>
+          <div class="service-name">Brand &amp; Creative</div>
+          <p class="service-desc">Logo design, graphic design, video editing, photography, scriptwriting &amp; brand
+            guidelines.</p>
+        </div>
+        <div class="service-card fade-in d1">
+          <div class="service-num">02</div>
+          <div class="service-icon">📈</div>
+          <div class="service-name">Marketing &amp; Growth</div>
+          <p class="service-desc">Meta Ads, Google Ads, SEO, email &amp; WhatsApp marketing, funnel strategy &amp;
+            conversion optimization.</p>
+        </div>
+        <div class="service-card fade-in d2">
+          <div class="service-num">03</div>
+          <div class="service-icon">💻</div>
+          <div class="service-name">Tech &amp; Development</div>
+          <p class="service-desc">Business websites, e-commerce, custom web dev, UI/UX design, WordPress, Shopify &amp;
+            CRM setup.</p>
+        </div>
+        <div class="service-card fade-in d3">
+          <div class="service-num">04</div>
+          <div class="service-icon">📱</div>
+          <div class="service-name">Social Media</div>
+          <p class="service-desc">End-to-end management on Instagram, YouTube, LinkedIn &amp; Facebook — content,
+            scheduling &amp; analytics.</p>
+        </div>
+      </div>
+
+      <div class="services-cta fade-in d4" style="margin-top:48px; text-align:center;">
         <a href="/services" class="btn-primary">
-          <span>Explore Services</span>
+          <span>View All Services</span>
           <span class="arrow">
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-              <path d="M2 7h10M7 2l5 5-5 5" stroke="currentColor" stroke-width="1.5"
-                stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M2 7h10M7 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                stroke-linejoin="round" />
             </svg>
           </span>
         </a>
-        <a href="/portfolio" class="btn-ghost">View Portfolio</a>
       </div>
-    </div>
+    </section>
 
-    <div class="hero-side fade-in d4">
-      <div class="hero-stats">
-        <div class="stat-item">
-          <div class="stat-num">4+</div>
-          <div class="stat-label">Service Pillars</div>
+    <!-- WHY US -->
+    <section class="section" id="why-us" style="padding-top:0;">
+      <div class="section-label fade-in">Why Choose Us</div>
+      <h2 class="section-title fade-in d1">Built <span class="accent">Different</span></h2>
+
+      <div class="why-grid">
+        <div class="why-card fade-in">
+          <div class="why-icon">⚡</div>
+          <div class="why-title">One Execution Framework</div>
+          <p class="why-desc">Everything — branding, marketing, tech — runs under a single cohesive system. No
+            fragmented vendors.</p>
         </div>
-        <div class="stat-item">
-          <div class="stat-num">01</div>
-          <div class="stat-label">Framework</div>
+        <div class="why-card fade-in d1">
+          <div class="why-icon">🎯</div>
+          <div class="why-title">Results-First Approach</div>
+          <p class="why-desc">Every decision is tied to measurable outcomes. We build what scales, not what just looks
+            good.</p>
         </div>
-      </div>
-      <div class="scroll-indicator fade-in d5">
-        <span class="scroll-label">Scroll</span>
-        <div class="scroll-track"><div class="scroll-fill"></div></div>
-        <span class="scroll-arrow">↓</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- MARQUEE -->
-<div class="marquee-section" aria-hidden="true">
-  <div class="marquee-track">
-    <div class="marquee-item">Brand Identity <div class="marquee-dot"></div></div>
-    <div class="marquee-item">Content Creation <div class="marquee-dot"></div></div>
-    <div class="marquee-item">Meta Ads <div class="marquee-dot"></div></div>
-    <div class="marquee-item">SEO Optimization <div class="marquee-dot"></div></div>
-    <div class="marquee-item">Web Development <div class="marquee-dot"></div></div>
-    <div class="marquee-item">Social Media <div class="marquee-dot"></div></div>
-    <div class="marquee-item">Video Editing <div class="marquee-dot"></div></div>
-    <div class="marquee-item">Growth Strategy <div class="marquee-dot"></div></div>
-    <div class="marquee-item">Brand Identity <div class="marquee-dot"></div></div>
-    <div class="marquee-item">Content Creation <div class="marquee-dot"></div></div>
-    <div class="marquee-item">Meta Ads <div class="marquee-dot"></div></div>
-    <div class="marquee-item">SEO Optimization <div class="marquee-dot"></div></div>
-    <div class="marquee-item">Web Development <div class="marquee-dot"></div></div>
-    <div class="marquee-item">Social Media <div class="marquee-dot"></div></div>
-    <div class="marquee-item">Video Editing <div class="marquee-dot"></div></div>
-    <div class="marquee-item">Growth Strategy <div class="marquee-dot"></div></div>
-  </div>
-</div>
-
-<!-- STATIC SERVICES -->
-<section class="section" id="services">
-  <div class="section-label fade-in">What We Do</div>
-  <h2 class="section-title fade-in d1">Our <span class="accent">Services</span></h2>
-
-  <div class="services-grid">
-    <div class="service-card fade-in">
-      <div class="service-num">01</div>
-      <div class="service-icon">🎨</div>
-      <div class="service-name">Brand &amp; Creative</div>
-      <p class="service-desc">Logo design, graphic design, video editing, photography, scriptwriting &amp; brand guidelines.</p>
-    </div>
-    <div class="service-card fade-in d1">
-      <div class="service-num">02</div>
-      <div class="service-icon">📈</div>
-      <div class="service-name">Marketing &amp; Growth</div>
-      <p class="service-desc">Meta Ads, Google Ads, SEO, email &amp; WhatsApp marketing, funnel strategy &amp; conversion optimization.</p>
-    </div>
-    <div class="service-card fade-in d2">
-      <div class="service-num">03</div>
-      <div class="service-icon">💻</div>
-      <div class="service-name">Tech &amp; Development</div>
-      <p class="service-desc">Business websites, e-commerce, custom web dev, UI/UX design, WordPress, Shopify &amp; CRM setup.</p>
-    </div>
-    <div class="service-card fade-in d3">
-      <div class="service-num">04</div>
-      <div class="service-icon">📱</div>
-      <div class="service-name">Social Media</div>
-      <p class="service-desc">End-to-end management on Instagram, YouTube, LinkedIn &amp; Facebook — content, scheduling &amp; analytics.</p>
-    </div>
-  </div>
-
-  <div class="services-cta fade-in d4" style="margin-top:48px; text-align:center;">
-    <a href="/services" class="btn-primary">
-      <span>View All Services</span>
-      <span class="arrow">
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-          <path d="M2 7h10M7 2l5 5-5 5" stroke="currentColor" stroke-width="1.5"
-            stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </span>
-    </a>
-  </div>
-</section>
-
-<!-- WHY US -->
-<section class="section" id="why-us" style="padding-top:0;">
-  <div class="section-label fade-in">Why Choose Us</div>
-  <h2 class="section-title fade-in d1">Built <span class="accent">Different</span></h2>
-
-  <div class="why-grid">
-    <div class="why-card fade-in">
-      <div class="why-icon">⚡</div>
-      <div class="why-title">One Execution Framework</div>
-      <p class="why-desc">Everything — branding, marketing, tech — runs under a single cohesive system. No fragmented vendors.</p>
-    </div>
-    <div class="why-card fade-in d1">
-      <div class="why-icon">🎯</div>
-      <div class="why-title">Results-First Approach</div>
-      <p class="why-desc">Every decision is tied to measurable outcomes. We build what scales, not what just looks good.</p>
-    </div>
-    <div class="why-card fade-in d2">
-      <div class="why-icon">🤝</div>
-      <div class="why-title">Private Studio Model</div>
-      <p class="why-desc">Limited clients. Deep focus. You get a dedicated partner, not a ticket number in a queue.</p>
-    </div>
-  </div>
-</section>
-
-<!-- DYNAMIC SERVICES FROM DB -->
-<section class="section" id="portfolio">
-  <div class="section-label fade-in">Book A Service</div>
-  <h2 class="section-title fade-in d1">Our <span class="accent">Portfolio</span></h2>
-
-  <div class="services-grid">
-    <% if (items && items.length > 0) { %>
-      <% items.forEach((item, index) => { %>
-        <div class="service-card fade-in">
-
-          <div class="service-num"><%= String(index + 1).padStart(2, '0') %></div>
-
-          <!-- MEDIA -->
-          <% if (item.media.type === "image") { %>
-            <img src="<%= item.media.url %>"
-              style="width:100%; height:180px; object-fit:cover; border-radius:10px; margin-bottom:15px;"
-              alt="<%= item.title %>">
-          <% } else { %>
-            <video src="<%= item.media.url %>" controls
-              style="width:100%; height:180px; object-fit:cover; border-radius:10px; margin-bottom:15px;"></video>
-          <% } %>
-
-          <div class="service-name"><%= item.title %></div>
-          <p class="service-desc"><%= item.subtitle %></p>
-
-          <p style="margin-top:10px; font-weight:600; color:#FF6B00;">
-            ₹<%= item.price.toLocaleString('en-IN') %>
+        <div class="why-card fade-in d2">
+          <div class="why-icon">🤝</div>
+          <div class="why-title">Private Studio Model</div>
+          <p class="why-desc">Limited clients. Deep focus. You get a dedicated partner, not a ticket number in a queue.
           </p>
+        </div>
+      </div>
+    </section>
 
-          <div style="margin-top:20px; display:flex; gap:10px; flex-wrap:wrap;">
+    <!-- DYNAMIC SERVICES FROM DB -->
+    <section class="section" id="portfolio">
+      <div class="section-label fade-in">Book A Service</div>
+      <h2 class="section-title fade-in d1">Our <span class="accent">Portfolio</span></h2>
 
-            <% if (user) { %>
-              <!-- ✅ JS-based Stripe redirect (no form POST) -->
-              <button
-                class="btn-primary"
-                onclick="handlePayment('<%= item._id %>', this)">
-                <span>Pay &amp; Book</span>
-              </button>
-            <% } else { %>
-              <a href="/signin" class="btn-primary">
-                <span>Login to Book</span>
-              </a>
-            <% } %>
+      <div class="services-grid">
+        <% if (items && items.length> 0) { %>
+          <% items.forEach((item, index)=> { %>
+            <div class="service-card fade-in">
 
-            <% if (user && user.role === "admin") { %>
-              <form action="/portfolio/delete/<%= item._id %>" method="POST"
-                onsubmit="return confirm('Delete this service?')">
-                <button type="submit" class="btn-dark">Delete</button>
-              </form>
-            <% } %>
+              <div class="service-num">
+                <%= String(index + 1).padStart(2, '0' ) %>
+              </div>
 
+              <!-- MEDIA -->
+              <% if (item.media.type==="image" ) { %>
+                <img src="<%= item.media.url %>"
+                  style="width:100%; height:180px; object-fit:cover; border-radius:10px; margin-bottom:15px;"
+                  alt="<%= item.title %>">
+                <% } else { %>
+                  <video src="<%= item.media.url %>" controls
+                    style="width:100%; height:180px; object-fit:cover; border-radius:10px; margin-bottom:15px;"></video>
+                  <% } %>
+
+                    <div class="service-name">
+                      <%= item.title %>
+                    </div>
+                    <p class="service-desc">
+                      <%= item.subtitle %>
+                    </p>
+
+                    <p style="margin-top:10px; font-weight:600; color:#FF6B00;">
+                      ₹<%= item.price.toLocaleString('en-IN') %>
+                    </p>
+
+                    <div style="margin-top:20px; display:flex; gap:10px; flex-wrap:wrap;">
+
+                      <% if (user) { %>
+                        <!-- ✅ JS-based Stripe redirect (no form POST) -->
+                        <button class="btn-primary" onclick="handlePayment('<%= item._id %>', this)">
+                          <span>Pay &amp; Book</span>
+                        </button>
+                        <% } else { %>
+                          <a href="/signin" class="btn-primary">
+                            <span>Login to Book</span>
+                          </a>
+                          <% } %>
+
+                            <% if (user && user.role==="admin" ) { %>
+                              <form action="/portfolio/delete/<%= item._id %>" method="POST"
+                                onsubmit="return confirm('Delete this service?')">
+                                <button type="submit" class="btn-dark">Delete</button>
+                              </form>
+                              <% } %>
+
+                    </div>
+            </div>
+            <% }) %>
+              <% } else { %>
+                <div style="grid-column:1/-1; text-align:center; color:#aaa; padding:40px;">
+                  No services available.
+                </div>
+                <% } %>
+      </div>
+    </section>
+
+    <!-- PROCESS -->
+    <section class="process-section" id="process">
+      <div style="max-width:1400px; margin:0 auto;">
+        <div class="section-label fade-in">How It Works</div>
+        <h2 class="section-title fade-in d1">Our <span class="accent">Process</span></h2>
+
+        <div class="process-grid">
+          <div class="process-step fade-in">
+            <div class="step-num">01</div>
+            <div class="step-title">Discovery Call</div>
+            <p class="step-desc">We understand your goals, current state, and where you want to be in 6–12 months.</p>
+          </div>
+          <div class="process-step fade-in d1">
+            <div class="step-num">02</div>
+            <div class="step-title">Strategy &amp; Plan</div>
+            <p class="step-desc">A tailored growth roadmap built around your business — no generic templates.</p>
+          </div>
+          <div class="process-step fade-in d2">
+            <div class="step-num">03</div>
+            <div class="step-title">Execution</div>
+            <p class="step-desc">Design, build, launch and manage — all under one roof with clear milestones.</p>
+          </div>
+          <div class="process-step fade-in d3">
+            <div class="step-num">04</div>
+            <div class="step-title">Scale &amp; Optimise</div>
+            <p class="step-desc">Track, learn, improve. We iterate until every channel is performing at its peak.</p>
           </div>
         </div>
-      <% }) %>
-    <% } else { %>
-      <div style="grid-column:1/-1; text-align:center; color:#aaa; padding:40px;">
-        No services available.
       </div>
-    <% } %>
-  </div>
-</section>
+    </section>
 
-<!-- PROCESS -->
-<section class="process-section" id="process">
-  <div style="max-width:1400px; margin:0 auto;">
-    <div class="section-label fade-in">How It Works</div>
-    <h2 class="section-title fade-in d1">Our <span class="accent">Process</span></h2>
-
-    <div class="process-grid">
-      <div class="process-step fade-in">
-        <div class="step-num">01</div>
-        <div class="step-title">Discovery Call</div>
-        <p class="step-desc">We understand your goals, current state, and where you want to be in 6–12 months.</p>
+    <!-- CTA -->
+    <div class="cta-section fade-in">
+      <div>
+        <h2>Ready to Build<br>Your Growth System?</h2>
+        <p>Let's build something that actually scales.</p>
       </div>
-      <div class="process-step fade-in d1">
-        <div class="step-num">02</div>
-        <div class="step-title">Strategy &amp; Plan</div>
-        <p class="step-desc">A tailored growth roadmap built around your business — no generic templates.</p>
-      </div>
-      <div class="process-step fade-in d2">
-        <div class="step-num">03</div>
-        <div class="step-title">Execution</div>
-        <p class="step-desc">Design, build, launch and manage — all under one roof with clear milestones.</p>
-      </div>
-      <div class="process-step fade-in d3">
-        <div class="step-num">04</div>
-        <div class="step-title">Scale &amp; Optimise</div>
-        <p class="step-desc">Track, learn, improve. We iterate until every channel is performing at its peak.</p>
+      <div class="cta-actions">
+        <a href="/contact" class="btn-primary">
+          <span>Get In Touch</span>
+          <span class="arrow">→</span>
+        </a>
+        <a href="/about" class="btn-dark">About Us</a>
       </div>
     </div>
-  </div>
-</section>
 
-<!-- CTA -->
-<div class="cta-section fade-in">
-  <div>
-    <h2>Ready to Build<br>Your Growth System?</h2>
-    <p>Let's build something that actually scales.</p>
-  </div>
-  <div class="cta-actions">
-    <a href="/contact" class="btn-primary">
-      <span>Get In Touch</span>
-      <span class="arrow">→</span>
-    </a>
-    <a href="/about" class="btn-dark">About Us</a>
-  </div>
-</div>
+    <!-- Toast -->
+    <div class="toast" id="toast"></div>
 
-<!-- Toast -->
-<div class="toast" id="toast"></div>
+    <!-- ✅ Payment Script -->
+    <script src="https://sdk.cashfree.com/js/v3/cashfree.js"></script>
 
-<!-- ✅ Payment Script -->
-<script>
-  async function handlePayment(serviceId, btn) {
-    // Disable button
-    btn.disabled = true;
-    btn.querySelector('span').textContent = 'Processing...';
+    <script>
+      // index.ejs — change sandbox to production
+      const cashfree = Cashfree({ mode: "production" }); // ← was "sandbox"
 
-    try {
-      const res = await fetch(`/booking/${serviceId}`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' }
-      });
+      async function handlePayment(serviceId, btn) {
+        btn.disabled = true;
+        btn.querySelector('span').textContent = 'Processing...';
 
-      if (!res.ok) {
-        const err = await res.json();
-        throw new Error(err.error || 'Server error');
+        try {
+          const res = await fetch(`/booking/create-order/${serviceId}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' }
+          });
+
+          const data = await res.json();
+
+          if (!res.ok) {
+            throw new Error(data.error || 'Server error');
+          }
+
+          if (!data.payment_session_id) {
+            throw new Error('No payment session returned');
+          }
+
+          // ✅ Open Cashfree hosted checkout
+          cashfree.checkout({
+            paymentSessionId: data.payment_session_id,
+            redirectTarget: "_self", // opens in same tab
+          });
+
+        } catch (err) {
+          console.error('Payment error:', err);
+          showToast('❌ ' + err.message, 'error');
+          btn.disabled = false;
+          btn.querySelector('span').textContent = 'Pay & Book';
+        }
       }
 
-      const data = await res.json();
-
-      if (data.url) {
-        window.location.href = data.url; // ✅ Redirect to Stripe
-      } else {
-        throw new Error('No checkout URL returned');
+      function showToast(msg, type = '') {
+        const toast = document.getElementById('toast');
+        toast.textContent = msg;
+        toast.className = 'toast show ' + type;
+        setTimeout(() => { toast.className = 'toast'; }, 4000);
       }
 
-    } catch (err) {
-      console.error('Payment error:', err);
-      showToast('❌ ' + err.message, 'error');
+      const params = new URLSearchParams(window.location.search);
+      if (params.get('cancelled')) {
+        showToast('⚠️ Payment was cancelled.', 'error');
+        window.history.replaceState({}, '', window.location.pathname);
+      }
+    </script>
 
-      // Re-enable button
-      btn.disabled = false;
-      btn.querySelector('span').textContent = 'Pay & Book';
-    }
-  }
-
-  function showToast(msg, type = '') {
-    const toast = document.getElementById('toast');
-    toast.textContent = msg;
-    toast.className = 'toast show ' + type;
-    setTimeout(() => { toast.className = 'toast'; }, 4000);
-  }
-
-  // ✅ Show cancelled toast if redirected back from Stripe cancel
-  const params = new URLSearchParams(window.location.search);
-  if (params.get('cancelled')) {
-    showToast('⚠️ Payment was cancelled.', 'error');
-    // Clean URL
-    window.history.replaceState({}, '', window.location.pathname);
-  }
-</script>
-
-<%- include('partials/footer') %>
-<%- include('partials/scripts') %>
+    <%- include('partials/footer') %>
+      <%- include('partials/scripts') %>
