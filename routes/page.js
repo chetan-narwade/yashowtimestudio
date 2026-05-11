@@ -4,10 +4,24 @@ const router = express.Router();
 const { createContact } = require("../controllers/page");
 const isLoggedIn = require("../middlewares/isLoggedIn");
 
-// Pages
-router.get("/", (req, res) => {
-    res.render("home", { title: "Home" });
+const Portfolio = require("../models/portfolio");
+
+router.get("/", async (req, res) => {
+  try {
+    const items = await Portfolio.find({ isActive: true });
+
+    res.render("home", {
+      title: "Home",
+      items,
+      user: req.session.user || null
+    });
+
+  } catch (err) {
+    console.log(err);
+    res.send("Error loading page");
+  }
 });
+
 
 router.get("/about", (req, res) => {
     res.render("about", { title: "About" });

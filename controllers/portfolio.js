@@ -32,22 +32,28 @@ exports.getPortfolioPage = async (req, res) => {
 // ======================
 exports.addPortfolioWork = async (req, res) => {
   try {
+    const { title, subtitle, category, price } = req.body;
 
-    const { title, subtitle, category } = req.body;
+    // ✅ Validation
+    if (!title || !subtitle || !category || !price) {
+      return res.status(400).send("All fields are required");
+    }
 
     if (!req.file) {
       return res.status(400).send("No file uploaded");
     }
 
-    const result = await cloudinary.uploader.upload(
-      req.file.path,
-      { resource_type: "auto" }
-    );
+    // ✅ Upload to Cloudinary
+    const result = await cloudinary.uploader.upload(req.file.path, {
+      resource_type: "auto"
+    });
 
+    // ✅ Save to DB
     await Portfolio.create({
       title,
       subtitle,
       category,
+      price: Number(price), // store price properly
       media: {
         url: result.secure_url,
         public_id: result.public_id,
@@ -58,11 +64,10 @@ exports.addPortfolioWork = async (req, res) => {
     res.redirect("/portfolio");
 
   } catch (err) {
-    console.log(err);
+    console.error(err);
     res.status(500).send("Error while adding portfolio work");
   }
 };
-
 
 // ======================
 // DELETE portfolio work (admin only)

@@ -21,16 +21,24 @@ const portfolioSchema = new mongoose.Schema({
   category: {
     type: String,
     required: [true, "Category is required"],
-    enum: {
-      values: ["brand", "marketing", "tech", "social"],
-      message: "Category must be brand, marketing, tech, or social"
-    },
+    enum: ["brand", "marketing", "tech", "social"],
     lowercase: true,
     trim: true
   },
 
-  media: {
+  // ✅ FIXED: price at root level
+  price: {
+    type: Number,
+    required: [true, "Price is required"],
+    min: [0, "Price cannot be negative"]
+  },
 
+  isActive: {
+    type: Boolean,
+    default: true
+  },
+
+  media: {
     url: {
       type: String,
       required: [true, "Media URL is required"],
@@ -49,13 +57,9 @@ const portfolioSchema = new mongoose.Schema({
 
     type: {
       type: String,
-      enum: {
-        values: ["image", "video"],
-        message: "Media type must be image or video"
-      },
+      enum: ["image", "video"],
       required: [true, "Media type is required"]
     }
-
   }
 
 }, { timestamps: true });

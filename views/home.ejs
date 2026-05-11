@@ -2,19 +2,25 @@
 <%- include('partials/navbar') %>
 
 <style>
-  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  *,
+  *::before,
+  *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
 
   :root {
-    --lime:         #C8F135;
-    --dark:         #0C0F14;
-    --dark2:        #0b0d10;
-    --dark3:        #1a2030;
-    --white:        #FFFFFF;
-    --gray:         #8a9bb0;
-    --card:         #141b26;
-    --nav-h:        72px;
+    --lime: #FF6B00;
+    --dark: #0C0F14;
+    --dark2: #0b0d10;
+    --dark3: #1a2030;
+    --white: #FFFFFF;
+    --gray: #8a9bb0;
+    --card: #141b26;
+    --nav-h: 72px;
     --font-display: 'Bebas Neue', sans-serif;
-    --font-body:    'Satoshi', sans-serif;
+    --font-body: 'Satoshi', sans-serif;
   }
 
   html { scroll-behavior: smooth; }
@@ -26,9 +32,6 @@
     overflow-x: hidden;
   }
 
-  /* ═══════════════════════════════════════
-     SHARED UTILITIES
-  ═══════════════════════════════════════ */
   .section-label {
     font-family: 'Satoshi', sans-serif !important;
     font-size: 11px;
@@ -57,13 +60,8 @@
     letter-spacing: -1px;
   }
 
-  .section-title span {
-    font-family: 'Bebas Neue', sans-serif !important;
-  }
-
   .section-title .accent { color: var(--lime); }
 
-  /* ── Primary lime button ── */
   .btn-primary {
     position: relative;
     display: inline-flex;
@@ -99,8 +97,7 @@
 
   .btn-primary:hover::before { transform: scaleX(1); }
   .btn-primary:hover { color: var(--dark); transform: translateY(-2px); }
-  .btn-primary span  { position: relative; z-index: 1; }
-
+  .btn-primary span { position: relative; z-index: 1; }
   .btn-primary .arrow {
     position: relative;
     z-index: 1;
@@ -108,10 +105,14 @@
     align-items: center;
     transition: transform 0.3s;
   }
-
   .btn-primary:hover .arrow { transform: translateX(4px); }
 
-  /* ── Ghost button ── */
+  .btn-primary:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+  }
+
   .btn-ghost {
     display: inline-flex;
     align-items: center;
@@ -138,7 +139,6 @@
     transform: translateY(-2px);
   }
 
-  /* ── Dark outline button ── */
   .btn-dark {
     display: inline-flex;
     align-items: center;
@@ -166,9 +166,6 @@
     transform: translateY(-2px);
   }
 
-  /* ═══════════════════════════════════════
-     FADE-IN ANIMATIONS
-  ═══════════════════════════════════════ */
   .fade-in {
     opacity: 0;
     transform: translateY(22px);
@@ -186,9 +183,6 @@
     to { opacity: 1; transform: translateY(0); }
   }
 
-  /* ═══════════════════════════════════════
-     HERO
-  ═══════════════════════════════════════ */
   .hero {
     min-height: 100vh;
     padding: calc(var(--nav-h) + 60px) 60px 120px;
@@ -202,8 +196,8 @@
     position: absolute;
     inset: 0;
     background:
-      radial-gradient(ellipse 60% 60% at 72% 50%, rgba(200,241,53,0.07) 0%, transparent 70%),
-      radial-gradient(ellipse 30% 30% at 18% 82%, rgba(200,241,53,0.04) 0%, transparent 60%);
+      radial-gradient(ellipse 60% 60% at 72% 50%, rgba(255,107,0,0.07) 0%, transparent 70%),
+      radial-gradient(ellipse 30% 30% at 18% 82%, rgba(255,107,0,0.04) 0%, transparent 60%);
     pointer-events: none;
   }
 
@@ -211,8 +205,8 @@
     position: absolute;
     inset: 0;
     background-image:
-      linear-gradient(rgba(200,241,53,0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(200,241,53,0.03) 1px, transparent 1px);
+      linear-gradient(rgba(255,107,0,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,107,0,0.03) 1px, transparent 1px);
     background-size: 60px 60px;
     pointer-events: none;
   }
@@ -271,12 +265,10 @@
 
   .hero-tag::before {
     content: '';
-    width: 30px;
-    height: 1px;
+    width: 30px; height: 1px;
     background: var(--lime);
   }
 
-  /* KEY FIX: hero-title AND all its children use Bebas Neue */
   .hero-title,
   .hero-title span,
   .hero-title .accent,
@@ -287,8 +279,7 @@
     letter-spacing: -1px;
   }
 
-  .hero-title .accent  { color: var(--lime); }
-
+  .hero-title .accent { color: var(--lime); }
   .hero-title .outline {
     -webkit-text-stroke: 1px rgba(255,255,255,0.25);
     color: transparent;
@@ -312,7 +303,6 @@
     flex-wrap: wrap;
   }
 
-  /* ── Stats ── */
   .hero-side {
     display: flex;
     flex-direction: column;
@@ -346,7 +336,6 @@
     margin-top: 4px;
   }
 
-  /* ── Scroll indicator ── */
   .scroll-indicator {
     display: flex;
     flex-direction: column;
@@ -369,9 +358,8 @@
   }
 
   .scroll-track {
-    width: 1px;
-    height: 60px;
-    background: rgba(200,241,53,0.15);
+    width: 1px; height: 60px;
+    background: rgba(255,107,0,0.15);
     position: relative;
     overflow: hidden;
     border-radius: 1px;
@@ -379,10 +367,8 @@
 
   .scroll-fill {
     position: absolute;
-    top: -40%;
-    left: 0;
-    width: 100%;
-    height: 40%;
+    top: -40%; left: 0;
+    width: 100%; height: 40%;
     background: var(--lime);
     border-radius: 1px;
     animation: scrollDrop 2s ease-in-out infinite;
@@ -406,9 +392,6 @@
     50%       { transform: translateY(5px); }
   }
 
-  /* ═══════════════════════════════════════
-     MARQUEE
-  ═══════════════════════════════════════ */
   .marquee-section {
     background: var(--lime);
     padding: 14px 0;
@@ -437,8 +420,7 @@
   }
 
   .marquee-dot {
-    width: 7px;
-    height: 7px;
+    width: 7px; height: 7px;
     background: var(--dark);
     border-radius: 50%;
     opacity: 0.4;
@@ -449,9 +431,6 @@
     100% { transform: translateX(-50%); }
   }
 
-  /* ═══════════════════════════════════════
-     SERVICES
-  ═══════════════════════════════════════ */
   .section {
     padding: 120px 60px;
     position: relative;
@@ -462,8 +441,8 @@
     grid-template-columns: repeat(4, 1fr);
     gap: 1px;
     margin-top: 60px;
-    border: 1px solid rgba(200,241,53,0.1);
-    background: rgba(200,241,53,0.06);
+    border: 1px solid rgba(255,107,0,0.1);
+    background: rgba(255,107,0,0.06);
   }
 
   .service-card {
@@ -472,15 +451,13 @@
     position: relative;
     overflow: hidden;
     transition: background 0.4s;
-    cursor: default;
   }
 
   .service-card::before {
     content: '';
     position: absolute;
     top: 0; left: 0;
-    width: 3px;
-    height: 0;
+    width: 3px; height: 0;
     background: var(--lime);
     transition: height 0.4s ease;
   }
@@ -491,15 +468,13 @@
   .service-num {
     font-family: 'Bebas Neue', sans-serif !important;
     font-size: 64px;
-    color: rgba(200,241,53,0.07);
+    color: rgba(255,107,0,0.07);
     line-height: 1;
     margin-bottom: 28px;
     transition: color 0.4s;
   }
 
-  .service-card:hover .service-num { color: rgba(200,241,53,0.15); }
-
-  .service-icon { font-size: 30px; margin-bottom: 18px; }
+  .service-card:hover .service-num { color: rgba(255,107,0,0.15); }
 
   .service-name {
     font-family: 'Satoshi', sans-serif !important;
@@ -518,14 +493,6 @@
     color: var(--gray);
   }
 
-  .services-cta {
-    margin-top: 48px;
-    text-align: center;
-  }
-
-  /* ═══════════════════════════════════════
-     WHY US
-  ═══════════════════════════════════════ */
   .why-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -535,13 +502,13 @@
 
   .why-card {
     background: var(--card);
-    border: 1px solid rgba(200,241,53,0.07);
+    border: 1px solid rgba(255,107,0,0.07);
     padding: 36px 30px;
     transition: border-color 0.3s, transform 0.3s;
   }
 
   .why-card:hover {
-    border-color: rgba(200,241,53,0.3);
+    border-color: rgba(255,107,0,0.3);
     transform: translateY(-4px);
   }
 
@@ -562,9 +529,6 @@
     color: var(--gray);
   }
 
-  /* ═══════════════════════════════════════
-     PROCESS STEPS
-  ═══════════════════════════════════════ */
   .process-section {
     padding: 120px 60px;
     background: var(--card);
@@ -577,7 +541,7 @@
     position: absolute;
     top: 0; left: 0; right: 0;
     height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(200,241,53,0.3), transparent);
+    background: linear-gradient(90deg, transparent, rgba(255,107,0,0.3), transparent);
   }
 
   .process-grid {
@@ -591,11 +555,9 @@
   .process-grid::before {
     content: '';
     position: absolute;
-    top: 28px;
-    left: 10%;
-    right: 10%;
+    top: 28px; left: 10%; right: 10%;
     height: 1px;
-    background: linear-gradient(90deg, var(--lime), rgba(200,241,53,0.2), var(--lime));
+    background: linear-gradient(90deg, var(--lime), rgba(255,107,0,0.2), var(--lime));
     opacity: 0.3;
   }
 
@@ -610,15 +572,14 @@
     position: absolute;
     left: 0; top: 24px;
     width: 1px; height: 20px;
-    background: rgba(200,241,53,0.15);
+    background: rgba(255,107,0,0.15);
   }
 
   .step-num {
-    width: 56px;
-    height: 56px;
+    width: 56px; height: 56px;
     border-radius: 50%;
     background: var(--dark2);
-    border: 1px solid rgba(200,241,53,0.2);
+    border: 1px solid rgba(255,107,0,0.2);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -655,14 +616,11 @@
     color: var(--gray);
   }
 
-  /* ═══════════════════════════════════════
-     CTA BANNER
-  ═══════════════════════════════════════ */
   .cta-section {
     margin: 0 60px 120px;
     padding: 72px 60px;
     background: linear-gradient(135deg, #141b26, #0c0f14);
-    border: 1px solid rgba(200,241,53,0.13);
+    border: 1px solid rgba(255,107,0,0.13);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -677,7 +635,7 @@
     position: absolute;
     top: -60px; right: -60px;
     width: 300px; height: 300px;
-    background: radial-gradient(circle, rgba(200,241,53,0.06) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(255,107,0,0.06) 0%, transparent 70%);
     border-radius: 50%;
     pointer-events: none;
   }
@@ -707,9 +665,32 @@
     justify-content: flex-end;
   }
 
-  /* ═══════════════════════════════════════
-     RESPONSIVE
-  ═══════════════════════════════════════ */
+  /* Toast notification */
+  .toast {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: #1a2030;
+    border: 1px solid rgba(255,107,0,0.3);
+    color: var(--white);
+    padding: 16px 24px;
+    border-radius: 10px;
+    font-family: 'Satoshi', sans-serif;
+    font-size: 14px;
+    z-index: 9999;
+    display: none;
+    animation: slideUp 0.3s ease;
+  }
+
+  .toast.error { border-color: rgba(255, 60, 60, 0.4); color: #ff6b6b; }
+  .toast.show  { display: block; }
+
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Responsive */
   @media (max-width: 1200px) {
     .services-grid { grid-template-columns: repeat(2, 1fr); }
     .process-grid  { grid-template-columns: repeat(2, 1fr); gap: 40px; }
@@ -718,17 +699,22 @@
   }
 
   @media (max-width: 1024px) {
-    .hero            { padding: calc(var(--nav-h) + 40px) 32px 100px; }
-    .section         { padding: 80px 32px; }
-    .process-section { padding: 80px 32px; }
-    .cta-section     { margin: 0 32px 80px; padding: 48px 36px; }
-
-    .hero-inner  { flex-direction: column; align-items: flex-start; }
-    .hero-side   { flex-direction: row; align-items: flex-end; justify-content: flex-start; width: 100%; gap: 40px; margin-top: 48px; }
-    .hero-stats  { flex-direction: row; align-items: flex-end; gap: 40px; }
-    .stat-item   { text-align: left; }
+    .hero { padding: calc(var(--nav-h) + 40px) 32px 100px; }
+    .section, .process-section { padding: 80px 32px; }
+    .cta-section { margin: 0 32px 80px; padding: 48px 36px; }
+    .hero-inner { flex-direction: column; align-items: flex-start; }
+    .hero-side {
+      flex-direction: row;
+      align-items: flex-end;
+      justify-content: flex-start;
+      width: 100%;
+      gap: 40px;
+      margin-top: 48px;
+    }
+    .hero-stats { flex-direction: row; align-items: flex-end; gap: 40px; }
+    .stat-item { text-align: left; }
     .scroll-indicator { display: none; }
-    .why-grid    { grid-template-columns: repeat(2, 1fr); }
+    .why-grid { grid-template-columns: repeat(2, 1fr); }
   }
 
   @media (max-width: 768px) {
@@ -736,7 +722,6 @@
     .hero-title span,
     .hero-title .accent,
     .hero-title .outline { font-size: clamp(56px, 14vw, 90px); }
-
     .services-grid { grid-template-columns: 1fr; }
     .process-grid  { grid-template-columns: 1fr; gap: 32px; }
     .why-grid      { grid-template-columns: 1fr; }
@@ -745,16 +730,13 @@
   }
 
   @media (max-width: 640px) {
-    .hero            { padding: calc(var(--nav-h) + 24px) 20px 80px; }
-    .section         { padding: 60px 20px; }
-    .process-section { padding: 60px 20px; }
-    .cta-section     { margin: 0 20px 60px; padding: 36px 24px; }
-
+    .hero { padding: calc(var(--nav-h) + 24px) 20px 80px; }
+    .section, .process-section { padding: 60px 20px; }
+    .cta-section { margin: 0 20px 60px; padding: 36px 24px; }
     .hero-actions { flex-direction: column; align-items: flex-start; }
     .hero-actions .btn-primary,
     .hero-actions .btn-ghost { width: 100%; justify-content: center; }
-
-    .hero-side  { flex-direction: column; align-items: flex-start; }
+    .hero-side { flex-direction: column; align-items: flex-start; }
     .hero-stats { flex-direction: row; flex-wrap: wrap; gap: 24px; }
   }
 </style>
@@ -768,7 +750,7 @@
 
   <div class="hero-inner">
     <div class="hero-content">
-      <div class="hero-tag fade-in">Private Growth Studio &nbsp;·&nbsp; 2026</div>
+      <div class="hero-tag fade-in">CreativeForge &nbsp;·&nbsp; 2026</div>
 
       <h1 class="hero-title fade-in d1">
         One Stop<br>
@@ -806,12 +788,9 @@
           <div class="stat-label">Framework</div>
         </div>
       </div>
-
       <div class="scroll-indicator fade-in d5">
         <span class="scroll-label">Scroll</span>
-        <div class="scroll-track">
-          <div class="scroll-fill"></div>
-        </div>
+        <div class="scroll-track"><div class="scroll-fill"></div></div>
         <span class="scroll-arrow">↓</span>
       </div>
     </div>
@@ -821,26 +800,26 @@
 <!-- MARQUEE -->
 <div class="marquee-section" aria-hidden="true">
   <div class="marquee-track">
-    <div class="marquee-item">Brand Identity     <div class="marquee-dot"></div></div>
-    <div class="marquee-item">Content Creation   <div class="marquee-dot"></div></div>
-    <div class="marquee-item">Meta Ads           <div class="marquee-dot"></div></div>
-    <div class="marquee-item">SEO Optimization   <div class="marquee-dot"></div></div>
-    <div class="marquee-item">Web Development    <div class="marquee-dot"></div></div>
-    <div class="marquee-item">Social Media       <div class="marquee-dot"></div></div>
-    <div class="marquee-item">Video Editing      <div class="marquee-dot"></div></div>
-    <div class="marquee-item">Growth Strategy    <div class="marquee-dot"></div></div>
-    <div class="marquee-item">Brand Identity     <div class="marquee-dot"></div></div>
-    <div class="marquee-item">Content Creation   <div class="marquee-dot"></div></div>
-    <div class="marquee-item">Meta Ads           <div class="marquee-dot"></div></div>
-    <div class="marquee-item">SEO Optimization   <div class="marquee-dot"></div></div>
-    <div class="marquee-item">Web Development    <div class="marquee-dot"></div></div>
-    <div class="marquee-item">Social Media       <div class="marquee-dot"></div></div>
-    <div class="marquee-item">Video Editing      <div class="marquee-dot"></div></div>
-    <div class="marquee-item">Growth Strategy    <div class="marquee-dot"></div></div>
+    <div class="marquee-item">Brand Identity <div class="marquee-dot"></div></div>
+    <div class="marquee-item">Content Creation <div class="marquee-dot"></div></div>
+    <div class="marquee-item">Meta Ads <div class="marquee-dot"></div></div>
+    <div class="marquee-item">SEO Optimization <div class="marquee-dot"></div></div>
+    <div class="marquee-item">Web Development <div class="marquee-dot"></div></div>
+    <div class="marquee-item">Social Media <div class="marquee-dot"></div></div>
+    <div class="marquee-item">Video Editing <div class="marquee-dot"></div></div>
+    <div class="marquee-item">Growth Strategy <div class="marquee-dot"></div></div>
+    <div class="marquee-item">Brand Identity <div class="marquee-dot"></div></div>
+    <div class="marquee-item">Content Creation <div class="marquee-dot"></div></div>
+    <div class="marquee-item">Meta Ads <div class="marquee-dot"></div></div>
+    <div class="marquee-item">SEO Optimization <div class="marquee-dot"></div></div>
+    <div class="marquee-item">Web Development <div class="marquee-dot"></div></div>
+    <div class="marquee-item">Social Media <div class="marquee-dot"></div></div>
+    <div class="marquee-item">Video Editing <div class="marquee-dot"></div></div>
+    <div class="marquee-item">Growth Strategy <div class="marquee-dot"></div></div>
   </div>
 </div>
 
-<!-- SERVICES -->
+<!-- STATIC SERVICES -->
 <section class="section" id="services">
   <div class="section-label fade-in">What We Do</div>
   <h2 class="section-title fade-in d1">Our <span class="accent">Services</span></h2>
@@ -872,7 +851,7 @@
     </div>
   </div>
 
-  <div class="services-cta fade-in d4">
+  <div class="services-cta fade-in d4" style="margin-top:48px; text-align:center;">
     <a href="/services" class="btn-primary">
       <span>View All Services</span>
       <span class="arrow">
@@ -886,7 +865,7 @@
 </section>
 
 <!-- WHY US -->
-<section class="section" id="why-us" style="padding-top: 0;">
+<section class="section" id="why-us" style="padding-top:0;">
   <div class="section-label fade-in">Why Choose Us</div>
   <h2 class="section-title fade-in d1">Built <span class="accent">Different</span></h2>
 
@@ -909,9 +888,71 @@
   </div>
 </section>
 
+<!-- DYNAMIC SERVICES FROM DB -->
+<section class="section" id="portfolio">
+  <div class="section-label fade-in">Book A Service</div>
+  <h2 class="section-title fade-in d1">Our <span class="accent">Portfolio</span></h2>
+
+  <div class="services-grid">
+    <% if (items && items.length > 0) { %>
+      <% items.forEach((item, index) => { %>
+        <div class="service-card fade-in">
+
+          <div class="service-num"><%= String(index + 1).padStart(2, '0') %></div>
+
+          <!-- MEDIA -->
+          <% if (item.media.type === "image") { %>
+            <img src="<%= item.media.url %>"
+              style="width:100%; height:180px; object-fit:cover; border-radius:10px; margin-bottom:15px;"
+              alt="<%= item.title %>">
+          <% } else { %>
+            <video src="<%= item.media.url %>" controls
+              style="width:100%; height:180px; object-fit:cover; border-radius:10px; margin-bottom:15px;"></video>
+          <% } %>
+
+          <div class="service-name"><%= item.title %></div>
+          <p class="service-desc"><%= item.subtitle %></p>
+
+          <p style="margin-top:10px; font-weight:600; color:#FF6B00;">
+            ₹<%= item.price.toLocaleString('en-IN') %>
+          </p>
+
+          <div style="margin-top:20px; display:flex; gap:10px; flex-wrap:wrap;">
+
+            <% if (user) { %>
+              <!-- ✅ JS-based Stripe redirect (no form POST) -->
+              <button
+                class="btn-primary"
+                onclick="handlePayment('<%= item._id %>', this)">
+                <span>Pay &amp; Book</span>
+              </button>
+            <% } else { %>
+              <a href="/signin" class="btn-primary">
+                <span>Login to Book</span>
+              </a>
+            <% } %>
+
+            <% if (user && user.role === "admin") { %>
+              <form action="/portfolio/delete/<%= item._id %>" method="POST"
+                onsubmit="return confirm('Delete this service?')">
+                <button type="submit" class="btn-dark">Delete</button>
+              </form>
+            <% } %>
+
+          </div>
+        </div>
+      <% }) %>
+    <% } else { %>
+      <div style="grid-column:1/-1; text-align:center; color:#aaa; padding:40px;">
+        No services available.
+      </div>
+    <% } %>
+  </div>
+</section>
+
 <!-- PROCESS -->
 <section class="process-section" id="process">
-  <div style="max-width: 1400px; margin: 0 auto;">
+  <div style="max-width:1400px; margin:0 auto;">
     <div class="section-label fade-in">How It Works</div>
     <h2 class="section-title fade-in d1">Our <span class="accent">Process</span></h2>
 
@@ -954,6 +995,61 @@
     <a href="/about" class="btn-dark">About Us</a>
   </div>
 </div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<!-- ✅ Payment Script -->
+<script>
+  async function handlePayment(serviceId, btn) {
+    // Disable button
+    btn.disabled = true;
+    btn.querySelector('span').textContent = 'Processing...';
+
+    try {
+      const res = await fetch(`/booking/${serviceId}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' }
+      });
+
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.error || 'Server error');
+      }
+
+      const data = await res.json();
+
+      if (data.url) {
+        window.location.href = data.url; // ✅ Redirect to Stripe
+      } else {
+        throw new Error('No checkout URL returned');
+      }
+
+    } catch (err) {
+      console.error('Payment error:', err);
+      showToast('❌ ' + err.message, 'error');
+
+      // Re-enable button
+      btn.disabled = false;
+      btn.querySelector('span').textContent = 'Pay & Book';
+    }
+  }
+
+  function showToast(msg, type = '') {
+    const toast = document.getElementById('toast');
+    toast.textContent = msg;
+    toast.className = 'toast show ' + type;
+    setTimeout(() => { toast.className = 'toast'; }, 4000);
+  }
+
+  // ✅ Show cancelled toast if redirected back from Stripe cancel
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('cancelled')) {
+    showToast('⚠️ Payment was cancelled.', 'error');
+    // Clean URL
+    window.history.replaceState({}, '', window.location.pathname);
+  }
+</script>
 
 <%- include('partials/footer') %>
 <%- include('partials/scripts') %>

@@ -120,10 +120,7 @@
   }
 
   /* ═══════════════════════════════════════
-     PORTFOLIO GRID — auto-fit masonry-style
-     Columns auto-size to content.
-     Photos keep natural ratio; videos get
-     a play icon badge.
+     PORTFOLIO GRID
   ═══════════════════════════════════════ */
   .portfolio-grid {
     padding: 0 60px 80px;
@@ -143,7 +140,6 @@
     border-radius: 4px;
   }
 
-  /* ── Media fills item naturally ── */
   .portfolio-media {
     display: block;
     width: 100%;
@@ -158,7 +154,6 @@
     transition: transform 0.5s ease;
   }
 
-  /* Videos: fixed 16/9 so they don't collapse */
   .portfolio-media video {
     width: 100%;
     aspect-ratio: 16 / 9;
@@ -217,6 +212,14 @@
     margin-top: 3px;
   }
 
+  .portfolio-price {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--lime);
+    margin-top: 6px;
+  }
+
   /* ── Video play badge ── */
   .video-badge {
     position: absolute;
@@ -239,7 +242,7 @@
     width: 14px;
     height: 14px;
     fill: var(--lime);
-    margin-left: 2px; /* optical center for triangle */
+    margin-left: 2px;
   }
 
   /* ── Admin controls ── */
@@ -421,7 +424,6 @@
   .add-work-box input::placeholder { color: rgba(255,255,255,0.2); }
   .add-work-box select option { background: var(--dark2); }
 
-  /* File input styling */
   .add-work-box input[type="file"] {
     padding: 10px 14px;
     color: var(--gray);
@@ -471,7 +473,6 @@
     .portfolio-filter { width: 100%; }
     .filter-btn { flex: 1 1 calc(50% - 1px); text-align: center; padding: 12px 8px; font-size: 10px; }
 
-    /* Single column masonry on mobile */
     .portfolio-grid { columns: 1; padding: 0 16px 48px; column-gap: 0; }
     .portfolio-item { margin-bottom: 10px; border-radius: 8px; }
 
@@ -533,7 +534,6 @@
           <% } %>
         </div>
 
-        <%# Play badge — only on video items %>
         <% if (w.media && w.media.type === 'video') { %>
           <div class="video-badge">
             <svg viewBox="0 0 12 14" xmlns="http://www.w3.org/2000/svg">
@@ -546,6 +546,9 @@
           <div class="portfolio-cat"><%= w.category %></div>
           <div class="portfolio-name"><%= w.title %></div>
           <div class="portfolio-sub"><%= w.subtitle %></div>
+          <% if (w.price) { %>
+            <div class="portfolio-price">₹<%= w.price.toLocaleString('en-IN') %></div>
+          <% } %>
 
           <% if (user && user.role === 'admin') { %>
             <div class="portfolio-actions">
@@ -591,8 +594,8 @@
     <div class="add-work-box">
       <h3>Add New Portfolio Work</h3>
       <form action="/portfolio/add" method="POST" enctype="multipart/form-data">
-        <input  type="text" name="title"    placeholder="Project title"  required>
-        <input  type="text" name="subtitle" placeholder="Short subtitle" required>
+        <input  type="text"   name="title"    placeholder="Project title"        required>
+        <input  type="text"   name="subtitle" placeholder="Short subtitle"       required>
         <select name="category" required>
           <option value="">Select category</option>
           <option value="brand">Branding</option>
@@ -600,7 +603,8 @@
           <option value="tech">Tech</option>
           <option value="social">Social Media</option>
         </select>
-        <input type="file" name="media" accept="image/*,video/*" required>
+        <input  type="number" name="price"    placeholder="Price (e.g. 999)"  min="0" step="0.01" required>
+        <input  type="file"   name="media"    accept="image/*,video/*"           required>
         <button type="submit">Add Work</button>
       </form>
     </div>
@@ -608,4 +612,4 @@
 <% } %>
 
 <%- include("partials/footer") %>
-<%- include('partials/scripts') %>  
+<%- include('partials/scripts') %>
